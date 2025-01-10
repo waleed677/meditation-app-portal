@@ -1,4 +1,4 @@
-import { Area, AreaChart, Bar, BarChart, ResponsiveContainer } from "recharts";
+import { Area, AreaChart, ResponsiveContainer } from "recharts";
 
 const SmallCard = ({
   title,
@@ -94,9 +94,6 @@ const SmallCard = ({
       </div>
 
       <ResponsiveContainer className="mt-7 mb-[-5px]" width={150} height={70}>
-        {/* <BarChart data={data}>
-          <Bar barSize="10" dataKey="uv" fill={fill} />
-        </BarChart> */}
         <AreaChart
           width={200}
           height={60}
