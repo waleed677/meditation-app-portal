@@ -1,4 +1,6 @@
 import { Tag } from "antd";
+import moment from "moment";
+import { IMAGE_BASE_URL } from "../config";
 
 export const checkRowData = (data: string) => {
   if (data) {
@@ -7,7 +9,6 @@ export const checkRowData = (data: string) => {
     return <span className="text-[#FF913C] font-medium ">N/A</span>;
   }
 };
-
 export const renderStatus = (status: string) => {
   if (status === "active") {
     return (
@@ -23,4 +24,10 @@ export const renderStatus = (status: string) => {
       </Tag>
     );
   }
+};
+export const dateFun = (date: string) => {
+  return moment(date).format("DD/MM/YYYY");
+};
+export const joinFileLink = (link: string) => {
+  return `${IMAGE_BASE_URL}${link}`;
 };

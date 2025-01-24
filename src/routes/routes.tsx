@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import Protected from "./protected";
 import Signin from "../screens/auth/sign-in";
+import Signup from "../screens/auth/sign-up";
 import Dashboard from "../screens/admin/dashboard";
 import User from "../screens/admin/users";
 import VisualPractice from "../screens/admin/visualPractice";
@@ -18,6 +19,7 @@ import ResourcesEditArticles from "../screens/admin/resources-article/components
 import Moments from "../screens/admin/moments";
 import Setting from "../screens/admin/setting";
 import PageNotFound from "../screens/PageNotFound";
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/">
@@ -41,6 +43,7 @@ const router = createBrowserRouter(
         <Route path="/setting" element={<Setting />} />
       </Route>
       <Route path="/sign-in" element={<Signin />} />
+      <Route path="/sign-up" element={<Signup />} />
       <Route path="*" element={<PageNotFound />} />
     </Route>
   )

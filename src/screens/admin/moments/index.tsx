@@ -1,13 +1,18 @@
 import { RiEdit2Fill } from "react-icons/ri";
 import ListTable from "../../../components/table";
-import { checkRowData } from "../../../utils/commonFun";
+import { checkRowData, joinFileLink } from "../../../utils/commonFun";
 import TableHeader from "./components/TableHeader";
 import { Image } from "antd";
 import EditMoments from "./components/EditMoments";
 import { useState } from "react";
 import DeleteModal from "../../../components/modals/delete-modal";
-
+import {
+  useGetMomentQuery,
+  useAddMomentMutation,
+} from "../../../services/moments";
 const Index = () => {
+  const { data, isLoading } = useGetMomentQuery();
+  const [addMoment, { isLoading: deleteLoading }] = useAddMomentMutation();
   const [showEditModal, setShowEditModal] = useState({
     open: false,
     data: null,
@@ -20,10 +25,22 @@ const Index = () => {
     },
     {
       title: "Image",
-      render: (record: { imageLink: string }) => (
-        <Image style={{ width: 50 }} src={record.imageLink} alt="" />
+      render: (record: { image_url: string }) => (
+        <div className="w-[50px] h-[20px]">
+          <Image
+            style={{ width: 50, height: "100%" }}
+            src={joinFileLink(record.image_url)}
+            alt=""
+          />
+        </div>
       ),
       key: "image",
+    },
+    {
+      title: "Title",
+      render: (record: { title: string }) => checkRowData(record.title),
+      key: "title",
+      width: 500,
     },
     {
       title: "Description",
@@ -34,7 +51,8 @@ const Index = () => {
     },
     {
       title: "Create At",
-      render: (record: { createdAt: string }) => checkRowData(record.createdAt),
+      render: (record: { created_at: string }) =>
+        checkRowData(record.created_at),
       key: "create_at",
     },
     {
@@ -47,26 +65,24 @@ const Index = () => {
             fill="#FF913C"
             className="cursor-pointer"
           />
-          <DeleteModal title="Are you sure you want to delete this moment?" />
+          {record && (
+            <DeleteModal
+              api={addMoment}
+              data={record}
+              deleteLoading={deleteLoading}
+              title="Are you sure you want to delete this moment?"
+            />
+          )}
         </div>
       ),
       key: "actions",
     },
   ];
-  const dummyData = [
-    {
-      id: 1,
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-      imageLink:
-        "https://img.freepik.com/free-vector/people-silhouette-logo_361591-2448.jpg?semt=ais_hybrid",
-      createdAt: "15-1-2025",
-    },
-  ];
+
   return (
     <div>
       <TableHeader />
-      <ListTable data={dummyData} columns={columns} />
+      <ListTable data={data?.moments} loading={isLoading} columns={columns} />
       <EditMoments
         setShowEditModal={setShowEditModal}
         showEditModal={showEditModal}

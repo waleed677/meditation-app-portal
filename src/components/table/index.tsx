@@ -7,18 +7,25 @@ interface DataItem {
 }
 
 interface ListTableProps {
+  loading: boolean;
   columns: DataItem[]; // Columns type as an array of ColumnProps, each column referring to a DataItem
   data: DataItem[]; // Data is an array of objects conforming to the DataItem structure
   pagination?: TablePaginationConfig; // Optional pagination config
 }
 
-const ListTable: React.FC<ListTableProps> = ({ columns, data, pagination }) => {
+const ListTable: React.FC<ListTableProps> = ({
+  columns,
+  data,
+  pagination,
+  loading,
+}) => {
   return (
     <Table
       scroll={{ x: 800 }}
       columns={columns}
       dataSource={data}
       pagination={pagination}
+      loading={loading}
     />
   );
 };

@@ -1,12 +1,19 @@
 import { RiEdit2Fill } from "react-icons/ri";
 import ListTable from "../../../components/table";
-import { checkRowData } from "../../../utils/commonFun";
+import { checkRowData, dateFun, joinFileLink } from "../../../utils/commonFun";
 import TableHeader from "./components/TableHeader";
 import DeleteModal from "../../../components/modals/delete-modal";
 import { useState } from "react";
 import EditAudio from "./components/EditAudio";
+import {
+  useGetAudioPracticeQuery,
+  useAddAudioPracticeMutation,
+} from "../../../services/audioPractice";
 
 const Index = () => {
+  const { data, isLoading } = useGetAudioPracticeQuery();
+  const [addAudioPractice, { isLoading: deleteLoading }] =
+    useAddAudioPracticeMutation();
   const [showEditModal, setShowEditModal] = useState({
     open: false,
     data: null,
@@ -23,13 +30,20 @@ const Index = () => {
       key: "title",
     },
     {
+      title: "Duration",
+      render: (record: { duration: string }) => checkRowData(record.duration),
+      key: "duration",
+    },
+    {
       title: "Audio",
-      render: (record: { audioLink: string }) => checkRowData(record.audioLink),
+      render: (record: { file_url: string }) => (
+        <audio src={joinFileLink(record.file_url)} controls />
+      ),
       key: "audioLink",
     },
     {
       title: "Create At",
-      render: (record: { createdAt: string }) => checkRowData(record.createdAt),
+      render: (record: { created_at: string }) => dateFun(record.created_at),
       key: "create_at",
     },
     {
@@ -42,25 +56,22 @@ const Index = () => {
             fill="#FF913C"
             className="cursor-pointer"
           />
-          <DeleteModal title="Are you sure you want to delete this audio?" />
+          <DeleteModal
+            api={addAudioPractice}
+            deleteLoading={deleteLoading}
+            data={record}
+            title="Are you sure you want to delete this audio?"
+          />
         </div>
       ),
       key: "actions",
     },
   ];
-  const dummyData = [
-    {
-      id: 1,
-      title: "Dummy",
-      audioLink:
-        "https://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Sevish_-__nbsp_.mp3",
-      createdAt: "15-1-2025",
-    },
-  ];
+
   return (
     <div>
       <TableHeader />
-      <ListTable data={dummyData} columns={columns} />
+      <ListTable loading={isLoading} data={data?.audios} columns={columns} />
       <EditAudio
         setShowEditModal={setShowEditModal}
         showEditModal={showEditModal}

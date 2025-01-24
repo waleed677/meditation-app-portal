@@ -13,6 +13,8 @@ interface EditModalProps {
   children?: ReactNode;
   title?: string;
   editModal: EditModalState;
+  loading: boolean;
+  postData?: () => void;
   setEditModal: React.Dispatch<React.SetStateAction<EditModalState>>;
 }
 
@@ -21,12 +23,26 @@ const EditModal: React.FC<EditModalProps> = ({
   editModal,
   setEditModal,
   title,
+  customValues,
+  loading,
+  postData,
 }) => {
   const [form] = useForm();
 
-  const onFinish = (values: any) => {
-    console.log("===values", values);
-    // Close the modal after submitting
+  const onFinish = async (values: any) => {
+    const data = { ...customValues, ...values };
+    const form = new FormData();
+    Object.keys(data).forEach((key) => {
+      const value = data[key];
+      if (Array.isArray(value)) {
+        value.forEach((item) => {
+          form.append(key, item.originFileObj || item);
+        });
+      } else {
+        form.append(key, value);
+      }
+    });
+    await postData(form).unwrap();
     setEditModal({ open: false, data: null });
   };
 
@@ -49,11 +65,16 @@ const EditModal: React.FC<EditModalProps> = ({
         layout="vertical"
       >
         {children}
-        <div className="flex items-center gap-2 justify-end">
+        <div className="flex items-center gap-2 justify-end mt-4">
           <Button onClick={() => setEditModal({ open: false, data: null })}>
             Cancel
           </Button>
-          <Button type="primary" htmlType="submit">
+          <Button
+            loading={loading}
+            disabled={loading}
+            type="primary"
+            htmlType="submit"
+          >
             Submit
           </Button>
         </div>

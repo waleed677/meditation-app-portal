@@ -7,6 +7,8 @@ interface AddModalProps {
   children?: ReactNode;
   title?: string;
   open: boolean;
+  loading: boolean;
+  postData?: () => void;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -15,16 +17,27 @@ const AddModal: React.FC<AddModalProps> = ({
   open,
   setOpen,
   title,
+  loading,
+  postData,
 }) => {
   const [form] = useForm();
 
-  // Define the onFinish handler to handle form submission
-  const onFinish = (values: any) => {
-    console.log("===values", values);
-    setOpen(false); // Close the modal after submission
+  const onFinish = async (values: any) => {
+    const form = new FormData();
+    Object.keys(values).forEach((key) => {
+      const value = values[key];
+      if (Array.isArray(value)) {
+        value.forEach((item) => {
+          form.append(key, item.originFileObj || item);
+        });
+      } else {
+        form.append(key, value);
+      }
+    });
+    await postData(form).unwrap();
+    setOpen(false);
   };
 
-  // Reset the form fields whenever the modal opens
   useEffect(() => {
     form.resetFields();
   }, [open]);
@@ -39,9 +52,14 @@ const AddModal: React.FC<AddModalProps> = ({
     >
       <Form form={form} onFinish={onFinish} layout="vertical">
         {children}
-        <div className="flex items-center gap-2 justify-end">
+        <div className="flex items-center gap-2 justify-end mt-4">
           <Button onClick={() => setOpen(false)}>Cancel</Button>
-          <Button type="primary" htmlType="submit">
+          <Button
+            loading={loading}
+            disabled={loading}
+            type="primary"
+            htmlType="submit"
+          >
             Submit
           </Button>
         </div>

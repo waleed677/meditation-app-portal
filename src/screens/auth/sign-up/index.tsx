@@ -23,7 +23,24 @@ const Index = () => {
           text="Sign in with Google"
         /> */}
         <Form layout="vertical" className="sm:w-[300px]">
-          <Form.Item name="email" label="Email" rules={[{ required: true }]}>
+          <Form.Item
+            name="username"
+            label="Username"
+            rules={[{ required: true }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="email"
+            label="Email"
+            rules={[
+              {
+                required: true,
+                type: "email",
+                message: "The input is not valid E-mail!",
+              },
+            ]}
+          >
             <Input />
           </Form.Item>
           <Form.Item
@@ -31,18 +48,18 @@ const Index = () => {
             label="Password"
             rules={[{ required: true }]}
           >
-            <Input />
+            <Input.Password />
           </Form.Item>
           <Button className="w-full" type="primary" htmlType="submit">
             Login
           </Button>
           <div
-            className="flex justify-center text-black cursor-pointer mt-2"
+            className="flex justify-center text-black cursor-pointer mt-3"
             onClick={() => {
-              navigate("/sign-up");
+              navigate("/sign-in");
             }}
           >
-            Are you a new user? Sign up
+            Back to login
           </div>
         </Form>
       </div>

@@ -2,7 +2,6 @@ import { Col, Row } from "antd";
 import SmallCard from "../../../components/cards/small-card";
 import NotificationsCard from "../../../components/cards/notifications-card";
 import AreaGraph from "../../../components/cards/area-graph";
-
 const Index = () => {
   return (
     <div>

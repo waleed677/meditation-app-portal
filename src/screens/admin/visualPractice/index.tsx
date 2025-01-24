@@ -1,15 +1,27 @@
 import { RiEdit2Fill } from "react-icons/ri";
 import ListTable from "../../../components/table";
-import { checkRowData } from "../../../utils/commonFun";
+import { checkRowData, dateFun, joinFileLink } from "../../../utils/commonFun";
 import TableHeader from "./components/TableHeader";
 import EditVideo from "./components/EditVideo";
 import { useState } from "react";
 import DeleteModal from "../../../components/modals/delete-modal";
-
+import {
+  useGetVisualPracticeQuery,
+  useAddVisualPracticeMutation,
+} from "../../../services/visualPractice";
+import ViewVideoPlayer from "./components/ViewVideoPlayer";
+import { Tag } from "antd";
 const Index = () => {
+  const { data, isLoading } = useGetVisualPracticeQuery();
+  const [addVisualPractice, { isLoading: deleteLoading }] =
+    useAddVisualPracticeMutation();
   const [showEditModal, setShowEditModal] = useState({
     open: false,
     data: null,
+  });
+  const [showVideoPlayer, setShowVideoPlayerData] = useState({
+    open: false,
+    videoLink: null,
   });
   const columns = [
     {
@@ -24,12 +36,25 @@ const Index = () => {
     },
     {
       title: "Video",
-      render: (record: { videoLink: string }) => checkRowData(record.videoLink),
+      render: (record: { file_url: string }) => (
+        <Tag
+          color="blue"
+          className="cursor-pointer"
+          onClick={() =>
+            setShowVideoPlayerData({
+              open: true,
+              videoLink: joinFileLink(record.file_url),
+            })
+          }
+        >
+          View Video
+        </Tag>
+      ),
       key: "video",
     },
     {
       title: "Create At",
-      render: (record: { createdAt: string }) => checkRowData(record.createdAt),
+      render: (record: { created_at: string }) => dateFun(record.created_at),
       key: "create_at",
     },
     {
@@ -42,29 +67,36 @@ const Index = () => {
             fill="#FF913C"
             className="cursor-pointer"
           />
-          <DeleteModal title="Are you sure you want to delete this video?" />
+          {record && (
+            <DeleteModal
+              data={record}
+              api={addVisualPractice}
+              deleteLoading={deleteLoading}
+              title="Are you sure you want to delete this video?"
+            />
+          )}
         </div>
       ),
       key: "actions",
     },
   ];
-  const dummyData = [
-    {
-      id: 1,
-      title: "Dummy",
-      videoLink:
-        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-      createdAt: "15-1-2025",
-    },
-  ];
+
   return (
     <div>
       <TableHeader />
-      <ListTable data={dummyData} columns={columns} />
-      <EditVideo
-        setShowEditModal={setShowEditModal}
-        showEditModal={showEditModal}
-      />
+      <ListTable data={data?.videos} loading={isLoading} columns={columns} />
+      {showEditModal.data && (
+        <EditVideo
+          setShowEditModal={setShowEditModal}
+          showEditModal={showEditModal}
+        />
+      )}
+      {showVideoPlayer.videoLink && (
+        <ViewVideoPlayer
+          setShowVideoPlayerData={setShowVideoPlayerData}
+          showVideoPlayer={showVideoPlayer}
+        />
+      )}
     </div>
   );
 };
