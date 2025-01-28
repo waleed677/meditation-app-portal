@@ -1,7 +1,7 @@
 import { Form, Select } from "antd";
 import TextInput from "../../../../components/form-inputs/textInput";
 import { Label } from "recharts";
-const UserForm = () => {
+const UserForm = ({ type }: { type?: string }) => {
   const handleChange = (value: string) => {
     console.log(`selected ${value}`);
   };
@@ -13,7 +13,11 @@ const UserForm = () => {
         placeholder="Enter your user name"
       />
       <TextInput name="email" label="Email" placeholder="Enter your email" />
-      <TextInput name="password" label="Password" placeholder="Enter your password" />
+    {type !== "edit" &&  <TextInput
+        name="password"
+        label="Password"
+        placeholder="Enter your password"
+      />}
       <Form.Item label="Status" name="status" rules={[{ required: true }]}>
         <Select
           defaultValue="Active"

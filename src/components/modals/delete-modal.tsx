@@ -25,6 +25,9 @@ const showDeleteConfirm = (
     onOk() {
       const form = new FormData();
       form.append("id", data.id);
+      if(data.role){
+        form.append("role", data.role);
+      }
       form.append("action", "delete");
       api(form);
       setOpen(true);

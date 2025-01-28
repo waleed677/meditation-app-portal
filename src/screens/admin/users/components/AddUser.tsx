@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AddModal from "../../../../components/modals/add-modal";
 import UserForm from "./UserForm";
 import { useAddUsersMutation } from "../../../../services/users";
+import { useNavigate } from "react-router-dom";
+import { message } from "antd";
 
 // Define the types for the props passed to AddUser
 interface AddUserProps {
@@ -10,14 +12,30 @@ interface AddUserProps {
 }
 
 const AddUser: React.FC<AddUserProps> = ({ setShowAddModal, showAddModal }) => {
-    const [addUsers, { isLoading }] = useAddUsersMutation();
+  const navigate = useNavigate();
+  const [addUsers, { isLoading, isSuccess, isError, data }] =
+    useAddUsersMutation();
+  useEffect(() => {
+    if (isSuccess) {
+      if (data) {
+        message.success(data.message);
+        navigate("/user");
+      }
+    }
+  }, [isSuccess]);
+
+  useEffect(() => {
+    if (isError) {
+      message.error(data?.error || "Something went wrong");
+    }
+  }, [isError, data]);
 
   return (
     <AddModal
       postData={addUsers}
       loading={isLoading}
-      title="Add User" 
-      setOpen={setShowAddModal} 
+      title="Add User"
+      setOpen={setShowAddModal}
       open={showAddModal}
     >
       <UserForm />

@@ -25,6 +25,22 @@ export const renderStatus = (status: string) => {
     );
   }
 };
+export const renderRole = (status: string) => {
+  if (status === "admin") {
+    return (
+      <Tag color="blue" className="capitalize">
+        {status}
+      </Tag>
+    );
+  }
+  if (status === "user") {
+    return (
+      <Tag color="red" className="capitalize">
+        {status}
+      </Tag>
+    );
+  }
+};
 export const dateFun = (date: string) => {
   return moment(date).format("DD/MM/YYYY");
 };

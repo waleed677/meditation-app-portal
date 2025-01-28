@@ -1,6 +1,6 @@
 import { RiEdit2Fill } from "react-icons/ri";
 import ListTable from "../../../components/table";
-import { checkRowData, renderStatus } from "../../../utils/commonFun";
+import { checkRowData, renderRole, renderStatus } from "../../../utils/commonFun";
 import TableHeader from "./components/TableHeader";
 import EditUser from "./components/EditUser";
 import { useState } from "react";
@@ -28,7 +28,7 @@ const Index = () => {
   const columns = [
     {
       title: "Id",
-      render: (record: { id: string }) => checkRowData(record.id),
+      render: (_: any, __: any, index: number) => index + 1,
       key: "id",
     },
     {
@@ -42,14 +42,14 @@ const Index = () => {
       render: (record: { email: string }) => checkRowData(record.email),
       key: "email",
     },
-    {
-      title: "Status",
-      render: (record: { status: string }) => renderStatus(record.status),
-      key: "status",
-    },
+    // {
+    //   title: "Status",
+    //   render: (record: { status: string }) => renderStatus(record.status),
+    //   key: "status",
+    // },
     {
       title: "Role",
-      render: (record: { status: string }) => renderStatus(record.role),
+      render: (record: { status: string }) => renderRole(record.role),
       key: "role",
     },
     {
@@ -66,6 +66,7 @@ const Index = () => {
             <DeleteModal
               api={addUsers}
               data={record}
+              
               deleteLoading={deleteLoading}
               title="Are you sure you want to delete this user?"
             />
@@ -95,23 +96,24 @@ const Index = () => {
     },
   ];
 
-  const items: TabsProps['items'] = [
-    {
-      key: '1',
-      label: 'Admin',
-      children: <ListTable data={data?.data} columns={columns} />,
-    },
-    {
-      key: '2',
-      label: 'User',
-      children: <ListTable data={data?.data} columns={columns} />,
-    },
-  ];
+  // const items: TabsProps['items'] = [
+  //   {
+  //     key: '1',
+  //     label: 'Admin',
+  //     children: <ListTable data={data?.data} columns={columns} />,
+  //   },
+  //   {
+  //     key: '2',
+  //     label: 'User',
+  //     children: <ListTable data={data?.data} columns={columns} />,
+  //   },
+  // ];
 
   return (
     <div>
       <TableHeader />
-      <Tabs defaultActiveKey="1" items={items} />
+      {/* <Tabs defaultActiveKey="1" items={items} /> */}
+      <ListTable data={data?.data} columns={columns} />
       {/* <ListTable data={dummyData} columns={columns} /> */}
       {showEditModal?.data && (
         <EditUser
