@@ -2,14 +2,14 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const audioPracticeApi = createApi({
   reducerPath: "audioPracticeApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "/api",
+    baseUrl: "https://mintcream-cod-221842.hostingersite.com/api",
   }),
-  tagTypes: ['AudioPractice'],
+  tagTypes: ["AudioPractice"],
   endpoints: (builder) => ({
     getAudioPractice: builder.query({
       query: () => `audio_practice.php`,
       providesTags: (result) =>
-        result ? [{ type: 'AudioPractice', id: 'LIST' }] : [],
+        result ? [{ type: "AudioPractice", id: "LIST" }] : [],
     }),
     addAudioPractice: builder.mutation({
       query: (body) => ({
@@ -17,7 +17,7 @@ export const audioPracticeApi = createApi({
         method: "POST",
         body,
       }),
-      invalidatesTags: [{ type: 'AudioPractice', id: 'LIST' }],
+      invalidatesTags: [{ type: "AudioPractice", id: "LIST" }],
     }),
   }),
 });
