@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const audioPracticeApi = createApi({
   reducerPath: "audioPracticeApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://mintcream-cod-221842.hostingersite.com/api",
+    baseUrl: "/api",
   }),
   tagTypes: ["AudioPractice"],
   endpoints: (builder) => ({

@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://mintcream-cod-221842.hostingersite.com/api",
+    baseUrl: "/api",
     prepareHeaders: (headers) => {
       headers.set("Content-Type", "application/json");
       const token = localStorage.getItem("authToken");
