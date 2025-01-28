@@ -1,6 +1,6 @@
 import { RiEdit2Fill } from "react-icons/ri";
 import ListTable from "../../../components/table";
-import { checkRowData } from "../../../utils/commonFun";
+import { checkRowData, joinFileLink } from "../../../utils/commonFun";
 import TableHeader from "./components/TableHeader";
 import { useNavigate } from "react-router-dom";
 import DeleteModal from "../../../components/modals/delete-modal";
@@ -8,6 +8,7 @@ import {
   useGetResourcesArticlesQuery,
   useAddResourcesArticlesMutation,
 } from "../../../services/resourcesArticles";
+import { Image } from "antd";
 
 const Index = () => {
   const { data, isLoading } = useGetResourcesArticlesQuery();
@@ -21,13 +22,19 @@ const Index = () => {
       render: (record: { id: string }) => checkRowData(record.id),
       key: "id",
     },
-    // {
-    //   title: "Thumbnail",
-    //   render: (record: { image_url: string }) => (
-    //     <Image style={{ width: 50 }} src={record.image_url} alt="" />
-    //   ),
-    //   key: "thumbnail",
-    // },
+    {
+      title: "Image",
+      render: (record: { image_url: string }) => (
+        <div className="w-[50px] h-[20px]">
+          <Image
+            style={{ width: 40, height: 30 }}
+            src={joinFileLink(record.image_url)}
+            alt=""
+          />
+        </div>
+      ),
+      key: "image",
+    },
     {
       title: "Title",
       render: (record: { title: string }) => checkRowData(record.title),

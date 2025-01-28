@@ -1,8 +1,8 @@
 import { RiEdit2Fill } from "react-icons/ri";
 import ListTable from "../../../components/table";
-import { checkRowData } from "../../../utils/commonFun";
+import { checkRowData, joinFileLink } from "../../../utils/commonFun";
 import TableHeader from "./components/TableHeader";
-import { Avatar } from "antd";
+import { Avatar, Image } from "antd";
 import EditPractices from "./components/EditPractices";
 import { useState } from "react";
 import DeleteModal from "../../../components/modals/delete-modal";
@@ -26,13 +26,19 @@ const Index = () => {
       render: (record: { id: string }) => checkRowData(record.id),
       key: "id",
     },
-    // {
-    //   title: "Logo",
-    //   render: (record: { logoLink: string }) => (
-    //     <Avatar size="large" src={record.logoLink} alt="" />
-    //   ),
-    //   key: "logoLink",
-    // },
+    {
+      title: "Image",
+      render: (record: { image_url: string }) => (
+        <div className="w-[50px] h-[20px]">
+          <Image
+            style={{ width: 40, height: 30 }}
+            src={joinFileLink(record.image_url)}
+            alt=""
+          />
+        </div>
+      ),
+      key: "image",
+    },
     {
       title: "Name",
       render: (record: { name: string }) => checkRowData(record.name),

@@ -28,7 +28,7 @@ const Index = () => {
       render: (record: { image_url: string }) => (
         <div className="w-[50px] h-[20px]">
           <Image
-            style={{ width: 50, height: "100%" }}
+            style={{ width: 40, height: 30 }}
             src={joinFileLink(record.image_url)}
             alt=""
           />
@@ -40,14 +40,12 @@ const Index = () => {
       title: "Title",
       render: (record: { title: string }) => checkRowData(record.title),
       key: "title",
-      width: 500,
     },
     {
       title: "Description",
       render: (record: { description: string }) =>
         checkRowData(record.description),
       key: "description",
-      width: 500,
     },
     {
       title: "Create At",

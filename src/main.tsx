@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App.tsx";
 import { ConfigProvider } from "antd";
 import "react-quill/dist/quill.snow.css";
-import { store } from "./store/store";
+import { store } from "./store/store.ts";
 import { Provider } from "react-redux";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
