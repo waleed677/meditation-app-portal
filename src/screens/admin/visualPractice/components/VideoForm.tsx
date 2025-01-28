@@ -1,8 +1,15 @@
-import { Form, Upload } from "antd";
+import { Form, Select, Upload } from "antd";
 import TextInput from "../../../../components/form-inputs/textInput";
 import { DeleteOutlined } from "@ant-design/icons";
+import { useGetPracticesQuery } from "../../../../services/practices";
+import { useState } from "react";
 
 const VideoForm = ({ showEditModal, setShowEditModal }) => {
+  const [practicesId, setPracticesId] = useState<string | null>(null); // State to store selected resource_id
+
+  const { data: getPracticesData, isLoading: getPracticesLoading } =
+    useGetPracticesQuery({});
+
   const handleDeleteFile = () => {
     const updatedData = { ...showEditModal.data };
     delete updatedData.file_url;
@@ -11,10 +18,29 @@ const VideoForm = ({ showEditModal, setShowEditModal }) => {
       data: updatedData,
     });
   };
-  
+
+  const handleChange = (value: string) => {
+    console.log(`selected ${value}`);
+    setPracticesId(value);
+  };
+
+  const practices = getPracticesData?.practices || [];
+
   return (
     <>
       <TextInput name="title" label="Title" placeholder="Enter your title" />
+      <Form.Item name="practices_id" label="Practices">
+        <Select
+          onChange={handleChange}
+          value={practicesId}
+        >
+          {practices.map((resource: { id: number; name: string }) => (
+            <Select.Option key={resource.id} value={resource.id}>
+              {resource.name}
+            </Select.Option>
+          ))}
+        </Select>
+      </Form.Item>
       <Form.Item
         name="video"
         label="Upload"

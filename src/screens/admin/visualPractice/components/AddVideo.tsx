@@ -22,7 +22,7 @@ const AddVideo: React.FC<AddVideoProps> = ({
     if (isSuccess) {
       if (data) {
         message.success(data.message);
-        navigate("/audio-practice");
+        navigate("/visual-practice");
       }
     }
   }, [isSuccess]);
