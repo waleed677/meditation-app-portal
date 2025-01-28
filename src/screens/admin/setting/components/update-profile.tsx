@@ -19,6 +19,8 @@ const UpdateProfile: React.FC<EditProfileProps> = ({
       title="Update Profile"
       setEditModal={setShowEditModal}
       editModal={showEditModal}
+      postData={() => {}}
+      loading={false}
     >
       <Form initialValues={showEditModal?.data} layout="vertical">
         <TextInput name="first_name" label="First Name" required={true} />

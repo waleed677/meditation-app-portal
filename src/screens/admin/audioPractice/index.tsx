@@ -11,7 +11,7 @@ import {
 } from "../../../services/audioPractice";
 
 const Index = () => {
-  const { data, isLoading } = useGetAudioPracticeQuery();
+  const { data, isLoading } = useGetAudioPracticeQuery({});
   const [addAudioPractice, { isLoading: deleteLoading }] =
     useAddAudioPracticeMutation();
   const [showEditModal, setShowEditModal] = useState({

@@ -3,10 +3,10 @@ export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "/api",
-    prepareHeaders: (headers, { getState }) => {
-      const token = localStorage.getItem('authToken');
+    prepareHeaders: (headers) => {
+      const token = localStorage.getItem("authToken");
       if (token) {
-        headers.set('Authorization', `Bearer ${token}`);
+        headers.set("Authorization", `Bearer ${token}`);
       }
       return headers;
     },

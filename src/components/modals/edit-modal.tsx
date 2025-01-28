@@ -14,8 +14,9 @@ interface EditModalProps {
   title?: string;
   editModal: EditModalState;
   loading: boolean;
-  postData?: () => void;
+  postData: (data: FormData) => any;
   setEditModal: React.Dispatch<React.SetStateAction<EditModalState>>;
+  customValues?: Record<string, any>;
 }
 
 const EditModal: React.FC<EditModalProps> = ({
@@ -23,7 +24,7 @@ const EditModal: React.FC<EditModalProps> = ({
   editModal,
   setEditModal,
   title,
-  customValues,
+  customValues = {},
   loading,
   postData,
 }) => {

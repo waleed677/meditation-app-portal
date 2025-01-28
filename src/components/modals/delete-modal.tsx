@@ -2,19 +2,31 @@ import { ExclamationCircleFilled } from "@ant-design/icons";
 import { Modal } from "antd";
 import { useState } from "react";
 import { RiDeleteBin6Fill } from "react-icons/ri";
+
 const { confirm } = Modal;
 
-const showDeleteConfirm = (
-  title?: string,
-  content?: string,
-  data?: any,
-  open?: boolean,
-  setOpen?: any,
-  api?: (data: any) => void,
-  deleteLoading?: boolean
-) => {
+// Define types for function parameters
+interface DeleteConfirmProps {
+  title?: string;
+  content?: string;
+  data?: { id: string | number; role?: string };
+  open?: boolean;
+  setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  api: (form: FormData) => void; // Function type for api
+  deleteLoading?: boolean;
+}
+
+const showDeleteConfirm = ({
+  title,
+  content,
+  data,
+  open,
+  setOpen,
+  api,
+  deleteLoading,
+}: DeleteConfirmProps) => {
   confirm({
-    open: open,
+    open,
     title,
     icon: <ExclamationCircleFilled />,
     content,
@@ -24,19 +36,30 @@ const showDeleteConfirm = (
     okButtonProps: { loading: deleteLoading },
     onOk() {
       const form = new FormData();
-      form.append("id", data.id);
-      if(data.role){
+      if (data?.id) {
+        form.append("id", String(data.id)); // Ensuring `id` is a string
+      }
+      if (data?.role) {
         form.append("role", data.role);
       }
       form.append("action", "delete");
       api(form);
-      setOpen(true);
+      if (setOpen) setOpen(true);
     },
     onCancel() {
-      setOpen(false);
+      if (setOpen) setOpen(false);
     },
   });
 };
+
+// Define types for DeleteModal props
+interface DeleteModalProps {
+  title?: string;
+  content?: string;
+  data: { id: string | number; role?: string };
+  api: (form: FormData) => void;
+  deleteLoading: boolean;
+}
 
 const DeleteModal = ({
   title,
@@ -44,27 +67,22 @@ const DeleteModal = ({
   data,
   api,
   deleteLoading,
-}: {
-  title?: string;
-  content?: string;
-  data: any;
-  api: any;
-  deleteLoading: boolean;
-}) => {
+}: DeleteModalProps) => {
   const [open, setOpen] = useState(false);
+
   return (
     <RiDeleteBin6Fill
       onClick={async () => {
         await setOpen(false);
-        showDeleteConfirm(
+        showDeleteConfirm({
           title,
           content,
           data,
           open,
           setOpen,
           api,
-          deleteLoading
-        );
+          deleteLoading,
+        });
       }}
       size={20}
       fill="#FF913C"

@@ -4,20 +4,23 @@ import { DeleteOutlined } from "@ant-design/icons";
 import { useGetPracticesQuery } from "../../../../services/practices";
 import { useState } from "react";
 
-const VideoForm = ({ showEditModal, setShowEditModal }) => {
+interface VideoFormProps {
+  showEditModal?: {
+    data: {
+      file_url?: string;
+      [key: string]: any;
+    };
+  };
+  setShowEditModal?: React.Dispatch<React.SetStateAction<any>>;
+}
+
+const VideoForm: React.FC<VideoFormProps> = ({
+  showEditModal,
+  setShowEditModal,
+}) => {
   const [practicesId, setPracticesId] = useState<string | null>(null); // State to store selected resource_id
 
-  const { data: getPracticesData, isLoading: getPracticesLoading } =
-    useGetPracticesQuery({});
-
-  const handleDeleteFile = () => {
-    const updatedData = { ...showEditModal.data };
-    delete updatedData.file_url;
-    setShowEditModal({
-      ...showEditModal,
-      data: updatedData,
-    });
-  };
+  const { data: getPracticesData } = useGetPracticesQuery({});
 
   const handleChange = (value: string) => {
     console.log(`selected ${value}`);
@@ -25,15 +28,22 @@ const VideoForm = ({ showEditModal, setShowEditModal }) => {
   };
 
   const practices = getPracticesData?.practices || [];
+  const handleDeleteFile = () => {
+    const updatedData = { ...showEditModal?.data };
+    delete updatedData.file_url;
+    if (setShowEditModal) {
+      setShowEditModal({
+        ...showEditModal,
+        data: updatedData,
+      });
+    }
+  };
 
   return (
     <>
       <TextInput name="title" label="Title" placeholder="Enter your title" />
       <Form.Item name="practices_id" label="Practices">
-        <Select
-          onChange={handleChange}
-          value={practicesId}
-        >
+        <Select onChange={handleChange} value={practicesId}>
           {practices.map((resource: { id: number; name: string }) => (
             <Select.Option key={resource.id} value={resource.id}>
               {resource.name}

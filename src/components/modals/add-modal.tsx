@@ -8,7 +8,7 @@ interface AddModalProps {
   title?: string;
   open: boolean;
   loading: boolean;
-  postData?: () => void;
+  postData: (data: FormData) => any;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 

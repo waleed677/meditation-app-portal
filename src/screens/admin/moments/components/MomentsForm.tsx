@@ -1,14 +1,29 @@
 import { Form, Input, Upload } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 
-const MomentsForm = ({ showEditModal, setShowEditModal }) => {
+interface MomentFormProps {
+  showEditModal?: {
+    data: {
+      file_url?: string;
+      [key: string]: any;
+    };
+  };
+  setShowEditModal?: React.Dispatch<React.SetStateAction<any>>;
+}
+
+const MomentsForm: React.FC<MomentFormProps> = ({
+  showEditModal,
+  setShowEditModal,
+}) => {
   const handleDeleteFile = () => {
-    const updatedData = { ...showEditModal.data };
+    const updatedData = { ...showEditModal?.data };
     delete updatedData.image_url;
-    setShowEditModal({
-      ...showEditModal,
-      data: updatedData,
-    });
+    if (setShowEditModal) {
+      setShowEditModal({
+        ...showEditModal,
+        data: updatedData,
+      });
+    }
   };
 
   return (

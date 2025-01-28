@@ -22,8 +22,9 @@ const EditAudio: React.FC<EditAudioProps> = ({
   showEditModal,
 }) => {
   const navigate = useNavigate();
-  const [addAudioPractice, { isLoading, isSuccess, isError, data }] = useAddAudioPracticeMutation();
-  
+  const [addAudioPractice, { isLoading, isSuccess, isError, data }] =
+    useAddAudioPracticeMutation();
+
   useEffect(() => {
     if (isSuccess) {
       if (data) {

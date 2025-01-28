@@ -2,7 +2,7 @@ import { RiEdit2Fill } from "react-icons/ri";
 import ListTable from "../../../components/table";
 import { checkRowData, joinFileLink } from "../../../utils/commonFun";
 import TableHeader from "./components/TableHeader";
-import { Avatar, Image } from "antd";
+import { Image } from "antd";
 import EditPractices from "./components/EditPractices";
 import { useState } from "react";
 import DeleteModal from "../../../components/modals/delete-modal";
@@ -12,7 +12,7 @@ import {
 } from "../../../services/practices";
 
 const Index = () => {
-  const { data, isLoading } = useGetPracticesQuery();
+  const { data, isLoading } = useGetPracticesQuery({});
   const [addPractices, { isLoading: deleteLoading }] =
     useAddPracticesMutation();
 
