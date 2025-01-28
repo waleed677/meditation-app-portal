@@ -11,7 +11,7 @@ import {
 import { Image } from "antd";
 
 const Index = () => {
-  const { data, isLoading } = useGetResourcesArticlesQuery();
+  const { data, isLoading } = useGetResourcesArticlesQuery({});
   const [addResourcesArticles, { isLoading: deleteLoading }] =
     useAddResourcesArticlesMutation();
 
@@ -57,7 +57,9 @@ const Index = () => {
       render: (record: any) => (
         <div className="flex items-center gap-2">
           <RiEdit2Fill
-            onClick={() => navigate("/resources-edit-articles", {state: record})}
+            onClick={() =>
+              navigate("/resources-edit-articles", { state: record })
+            }
             size={20}
             fill="#FF913C"
             className="cursor-pointer"

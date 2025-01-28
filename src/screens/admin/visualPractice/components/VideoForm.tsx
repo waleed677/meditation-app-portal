@@ -2,16 +2,31 @@ import { Form, Upload } from "antd";
 import TextInput from "../../../../components/form-inputs/textInput";
 import { DeleteOutlined } from "@ant-design/icons";
 
-const VideoForm = ({ showEditModal, setShowEditModal }) => {
-  const handleDeleteFile = () => {
-    const updatedData = { ...showEditModal.data };
-    delete updatedData.file_url;
-    setShowEditModal({
-      ...showEditModal,
-      data: updatedData,
-    });
+interface VideoFormProps {
+  showEditModal?: {
+    data: {
+      file_url?: string;
+      [key: string]: any;
+    };
   };
-  
+  setShowEditModal?: React.Dispatch<React.SetStateAction<any>>;
+}
+
+const VideoForm: React.FC<VideoFormProps> = ({
+  showEditModal,
+  setShowEditModal,
+}) => {
+  const handleDeleteFile = () => {
+    const updatedData = { ...showEditModal?.data };
+    delete updatedData.file_url;
+    if (setShowEditModal) {
+      setShowEditModal({
+        ...showEditModal,
+        data: updatedData,
+      });
+    }
+  };
+
   return (
     <>
       <TextInput name="title" label="Title" placeholder="Enter your title" />

@@ -8,16 +8,16 @@ const Index = () => {
   const navigate = useNavigate();
   const [login, { isLoading, isSuccess, isError, data }] = useLoginMutation();
 
-  const onFinish = async (values) => {
+  const onFinish = async (values: { email: string; password: string }) => {
     await login(values).unwrap();
-  }
+  };
 
   useEffect(() => {
     if (isSuccess) {
       console.log("Full API Response:", data); // Log the entire response
       if (data && data.token) {
-        localStorage.setItem("authToken", data.token); // Store the token 
-        localStorage.setItem("userInfo", JSON.stringify(data.admin));  // Store user info
+        localStorage.setItem("authToken", data.token); // Store the token
+        localStorage.setItem("userInfo", JSON.stringify(data.admin)); // Store user info
         message.success(data.message);
         navigate("/");
       } else {
@@ -56,7 +56,13 @@ const Index = () => {
           >
             <Input />
           </Form.Item>
-          <Button disabled={isLoading} loading={isLoading} className="w-full" type="primary" htmlType="submit">
+          <Button
+            disabled={isLoading}
+            loading={isLoading}
+            className="w-full"
+            type="primary"
+            htmlType="submit"
+          >
             Login
           </Button>
           <div

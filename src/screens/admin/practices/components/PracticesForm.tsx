@@ -2,14 +2,29 @@ import { Form, Input, Upload } from "antd";
 import TextInput from "../../../../components/form-inputs/textInput";
 import { DeleteOutlined } from "@ant-design/icons";
 
-const PracticesForm = ({ showEditModal, setShowEditModal }) => {
+interface PracticesFormProps {
+  showEditModal?: {
+    data: {
+      file_url?: string;
+      [key: string]: any;
+    };
+  };
+  setShowEditModal?: React.Dispatch<React.SetStateAction<any>>;
+}
+
+const PracticesForm: React.FC<PracticesFormProps> = ({
+  showEditModal,
+  setShowEditModal,
+}) => {
   const handleDeleteFile = () => {
-    const updatedData = { ...showEditModal.data };
+    const updatedData = { ...showEditModal?.data };
     delete updatedData.image_url;
-    setShowEditModal({
-      ...showEditModal,
-      data: updatedData,
-    });
+    if (setShowEditModal) {
+      setShowEditModal({
+        ...showEditModal,
+        data: updatedData,
+      });
+    }
   };
   return (
     <>

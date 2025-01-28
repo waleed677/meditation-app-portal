@@ -12,17 +12,20 @@ import {
 import ViewVideoPlayer from "./components/ViewVideoPlayer";
 import { Tag } from "antd";
 const Index = () => {
-  const { data, isLoading } = useGetVisualPracticeQuery();
+  const { data, isLoading } = useGetVisualPracticeQuery({});
   const [addVisualPractice, { isLoading: deleteLoading }] =
     useAddVisualPracticeMutation();
   const [showEditModal, setShowEditModal] = useState({
     open: false,
     data: null,
   });
-  
-  const [showVideoPlayer, setShowVideoPlayerData] = useState({
+
+  const [showVideoPlayer, setShowVideoPlayerData] = useState<{
+    open: boolean;
+    videoLink: string | null; // Explicitly type videoLink
+  }>({
     open: false,
-    videoLink: null,
+    videoLink: null, // Default value is null
   });
 
   const columns = [

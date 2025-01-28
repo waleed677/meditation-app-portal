@@ -11,7 +11,7 @@ import {
   useAddMomentMutation,
 } from "../../../services/moments";
 const Index = () => {
-  const { data, isLoading } = useGetMomentQuery();
+  const { data, isLoading } = useGetMomentQuery({});
   const [addMoment, { isLoading: deleteLoading }] = useAddMomentMutation();
   const [showEditModal, setShowEditModal] = useState({
     open: false,

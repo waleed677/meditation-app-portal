@@ -11,15 +11,12 @@ import { useGetResourcesQuery } from "../../../../services/resources";
 const EditArticle = () => {
   const location = useLocation();
   const [resourceId, setResourceId] = useState<string | null>(null); // State to store selected resource_id
-  const { data: getResourcesData, isLoading: getResourcesLoading } =
-  useGetResourcesQuery();
-  const [addResourcesArticles, { isLoading, isSuccess, isError, data }] =
+  const { data: getResourcesData } = useGetResourcesQuery({});
+  const [addResourcesArticles, { isSuccess, isError, data }] =
     useAddResourcesArticlesMutation();
   const [showEditModal, setShowEditModal] = useState(location?.state);
-  console.log("=====location", location);
   const navigate = useNavigate();
   const [detail, setDetail] = useState(""); // Store the editor content
-  const [imageUrl, setImageUrl] = useState(null); // Store the image URL locally
 
   const toolbarOptions = [
     [{ header: "1" }, { header: "2" }, { font: [] }],
@@ -39,7 +36,7 @@ const EditArticle = () => {
 
   // Handle form submission
   const onFinish = async (values: any) => {
-    console.log("====values.image",values.image,location?.state.image_url)
+    console.log("====values.image", values.image, location?.state.image_url);
     const form = new FormData();
     form.append("title", values.title);
     form.append("content", values.content);
@@ -86,7 +83,6 @@ const EditArticle = () => {
     const updatedData = { ...showEditModal };
     delete updatedData.image_url;
     setShowEditModal(updatedData);
-    setImageUrl(null); // Set image URL to null to remove the image from UI
   };
 
   return (
@@ -141,7 +137,6 @@ const EditArticle = () => {
           label="Upload Thumbnail"
           valuePropName="fileList"
           getValueFromEvent={(e) => e.fileList}
-          
           rules={[
             {
               required: !showEditModal.image_url ? true : false,

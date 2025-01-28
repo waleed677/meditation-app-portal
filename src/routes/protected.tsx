@@ -2,8 +2,8 @@ import { Navigate, Outlet } from "react-router-dom";
 import AppLayout from "../components/layout";
 
 const Protected = () => {
-  const isAuthorized =
-    localStorage.getItem("authToken")?.length > 0 ? true : false;
+  const isAuthorized = Boolean(localStorage.getItem("authToken"));
+
   return isAuthorized ? (
     <AppLayout>
       <Outlet />
