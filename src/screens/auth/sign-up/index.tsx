@@ -10,11 +10,12 @@ const Index = () => {
   const [signup, { isLoading, isSuccess, isError, data }] = useSignupMutation();
 
   const handleSignUp = async (values: any) => {
-    const form = new FormData();
-    form.append("username", values.username);
-    form.append("email", values.email);
-    form.append("password", values.password);
-    await signup(form).unwrap();
+    // const form = new FormData();
+    // form.append("username", values.username);
+    // form.append("email", values.email);
+    // form.append("password", values.password);
+
+    await signup(values).unwrap();
   };
 
   useEffect(() => {
