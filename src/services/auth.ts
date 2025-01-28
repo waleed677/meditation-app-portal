@@ -18,6 +18,9 @@ export const authApi = createApi({
         url: `admin_auth.php?action=login`,
         method: "POST",
         body,
+        headers: {
+          "Content-Type": "application/json", // example for a different content type
+        },
       }),
     }),
     signup: builder.mutation({
@@ -25,6 +28,9 @@ export const authApi = createApi({
         url: `admin_auth.php?action=register`,
         method: "POST",
         body,
+        headers: {
+          "Content-Type": "application/json", // example for a different content type
+        },
       }),
     }),
     updateUserInfo: builder.mutation({
@@ -32,6 +38,9 @@ export const authApi = createApi({
         url: `admin_auth.php?action=update`,
         method: "POST",
         body,
+        headers: {
+          "Content-Type": "application/json", // example for a different content type
+        },
       }),
     }),
   }),
