@@ -84,7 +84,6 @@ const AddArticle = () => {
 
         <Form.Item name="resource_id" label="Resources">
           <Select
-            style={{ width: 120 }}
             onChange={handleChange}
             value={resourceId}
           >

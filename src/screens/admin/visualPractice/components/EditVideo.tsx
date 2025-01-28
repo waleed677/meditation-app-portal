@@ -28,7 +28,7 @@ const EditVideo: React.FC<EditVideoProps> = ({
     if (isSuccess) {
       if (data) {
         message.success(data.message);
-        navigate("/audio-practice");
+        navigate("/visual-practice");
       }
     }
   }, [isSuccess]);
