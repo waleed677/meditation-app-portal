@@ -5,8 +5,21 @@ import TableHeader from "./components/TableHeader";
 import EditUser from "./components/EditUser";
 import { useState } from "react";
 import DeleteModal from "../../../components/modals/delete-modal";
+import { Tabs } from 'antd';
+import type { TabsProps } from 'antd';
+import {
+  useGetUsersQuery,
+  useAddUsersMutation,
+} from "../../../services/users";
 
 const Index = () => {
+  const { data, isLoading } = useGetUsersQuery();
+  console.log("======data",data);
+  const [addUsers, { isLoading: deleteLoading }] =
+  useAddUsersMutation();
+
+
+
   const [showEditModal, setShowEditModal] = useState({
     open: false,
     data: null,
@@ -19,15 +32,10 @@ const Index = () => {
       key: "id",
     },
     {
-      title: "First Name",
-      render: (record: { first_name: string }) =>
-        checkRowData(record.first_name),
-      key: "first_name",
-    },
-    {
-      title: "Last Name",
-      render: (record: { last_name: string }) => checkRowData(record.last_name),
-      key: "last_name",
+      title: "User Name",
+      render: (record: { username: string }) =>
+        checkRowData(record.username),
+      key: "username",
     },
     {
       title: "Email",
@@ -35,14 +43,14 @@ const Index = () => {
       key: "email",
     },
     {
-      title: "Phone",
-      render: (record: { phone: string }) => checkRowData(record.phone),
-      key: "phone",
-    },
-    {
       title: "Status",
       render: (record: { status: string }) => renderStatus(record.status),
-      key: "phone",
+      key: "status",
+    },
+    {
+      title: "Role",
+      render: (record: { status: string }) => renderStatus(record.role),
+      key: "role",
     },
     {
       title: "Actions",
@@ -54,12 +62,20 @@ const Index = () => {
             fill="#FF913C"
             className="cursor-pointer"
           />
-          <DeleteModal title="Are you sure you want to delete this user?" />
+          {record && (
+            <DeleteModal
+              api={addUsers}
+              data={record}
+              deleteLoading={deleteLoading}
+              title="Are you sure you want to delete this user?"
+            />
+          )}
         </div>
       ),
       key: "actions",
     },
   ];
+    
   const dummyData = [
     {
       id: 1,
@@ -78,10 +94,25 @@ const Index = () => {
       status: "block",
     },
   ];
+
+  const items: TabsProps['items'] = [
+    {
+      key: '1',
+      label: 'Admin',
+      children: <ListTable data={data?.data} columns={columns} />,
+    },
+    {
+      key: '2',
+      label: 'User',
+      children: <ListTable data={data?.data} columns={columns} />,
+    },
+  ];
+
   return (
     <div>
       <TableHeader />
-      <ListTable data={dummyData} columns={columns} />
+      <Tabs defaultActiveKey="1" items={items} />
+      {/* <ListTable data={dummyData} columns={columns} /> */}
       {showEditModal?.data && (
         <EditUser
           setShowEditModal={setShowEditModal}

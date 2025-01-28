@@ -4,9 +4,12 @@ export const momentApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "/api",
   }),
+  tagTypes: ['Moments'],
   endpoints: (builder) => ({
     getMoment: builder.query({
       query: () => `moments.php`,
+      providesTags: (result) =>
+        result ? [{ type: 'Moments', id: 'LIST' }] : [],
     }),
     addMoment: builder.mutation({
       query: (body) => ({
@@ -14,6 +17,7 @@ export const momentApi = createApi({
         method: "POST",
         body,
       }),
+      invalidatesTags: [{ type: 'Moments', id: 'LIST' }],
     }),
   }),
 });

@@ -6,8 +6,16 @@ import { Avatar } from "antd";
 import EditPractices from "./components/EditPractices";
 import { useState } from "react";
 import DeleteModal from "../../../components/modals/delete-modal";
+import {
+  useGetPracticesQuery,
+  useAddPracticesMutation,
+} from "../../../services/practices";
 
 const Index = () => {
+  const { data, isLoading } = useGetPracticesQuery();
+  const [addPractices, { isLoading: deleteLoading }] =
+    useAddPracticesMutation();
+
   const [showEditModal, setShowEditModal] = useState({
     open: false,
     data: null,
@@ -18,22 +26,23 @@ const Index = () => {
       render: (record: { id: string }) => checkRowData(record.id),
       key: "id",
     },
-    {
-      title: "Logo",
-      render: (record: { logoLink: string }) => (
-        <Avatar size="large" src={record.logoLink} alt="" />
-      ),
-      key: "logoLink",
-    },
+    // {
+    //   title: "Logo",
+    //   render: (record: { logoLink: string }) => (
+    //     <Avatar size="large" src={record.logoLink} alt="" />
+    //   ),
+    //   key: "logoLink",
+    // },
     {
       title: "Name",
       render: (record: { name: string }) => checkRowData(record.name),
       key: "name",
     },
     {
-      title: "Create At",
-      render: (record: { createdAt: string }) => checkRowData(record.createdAt),
-      key: "create_at",
+      title: "Description",
+      render: (record: { description: string }) =>
+        checkRowData(record.description),
+      key: "description",
     },
     {
       title: "Actions",
@@ -45,25 +54,24 @@ const Index = () => {
             fill="#FF913C"
             className="cursor-pointer"
           />
-          <DeleteModal title="Are you sure you want to delete this practice?" />
+          {record && (
+            <DeleteModal
+              api={addPractices}
+              data={record}
+              deleteLoading={deleteLoading}
+              title="Are you sure you want to delete this practice?"
+            />
+          )}
         </div>
       ),
       key: "actions",
     },
   ];
-  const dummyData = [
-    {
-      id: 1,
-      name: "Mindfulness of Body",
-      logoLink:
-        "https://img.freepik.com/free-vector/people-silhouette-logo_361591-2448.jpg?semt=ais_hybrid",
-      createdAt: "15-1-2025",
-    },
-  ];
+
   return (
     <div>
       <TableHeader />
-      <ListTable data={dummyData} columns={columns} />
+      <ListTable data={data?.practices} loading={isLoading} columns={columns} />
       <EditPractices
         setShowEditModal={setShowEditModal}
         showEditModal={showEditModal}

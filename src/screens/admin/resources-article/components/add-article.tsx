@@ -1,12 +1,22 @@
-import { Button, Form, Upload } from "antd";
+import { Button, Form, message, Upload, Select } from "antd";
 import Typography from "../../../../components/Typography/typography";
 import TextInput from "../../../../components/form-inputs/textInput";
 import ReactQuill from "react-quill";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAddResourcesArticlesMutation } from "../../../../services/resourcesArticles";
+import { useGetResourcesQuery } from "../../../../services/resources";
 
 const AddArticle = () => {
   const navigate = useNavigate();
+  const [resourceId, setResourceId] = useState<string | null>(null); // State to store selected resource_id
+  const [addResourcesArticles, { isLoading, isSuccess, isError, data }] =
+    useAddResourcesArticlesMutation();
+  const { data: getResourcesData, isLoading: getResourcesLoading } =
+    useGetResourcesQuery();
+
+  console.log("getResourcesData", getResourcesData?.resources);
+
   const [detail, setDetail] = useState(""); // Store the editor content
 
   const toolbarOptions = [
@@ -25,24 +35,70 @@ const AddArticle = () => {
     ["table"],
   ];
 
-  // Handle form submission
-  const onFinish = (values: any) => {
-    console.log("Form values:", values);
+  const onFinish = async (values: any) => {
+    console.log("values.content", values.content);
+    const form = new FormData();
+    form.append("title", values.title);
+    form.append("content", values.content);
+    form.append("resource_id", resourceId); // Appending the resource_id from the Select component
+    if (values.image_url && values.image_url.length > 0) {
+      form.append("image", values.image_url[0].originFileObj);
+    } else {
+      message.error("Please upload a thumbnail.");
+      return;
+    }
+    await addResourcesArticles(form).unwrap();
   };
+
+  const handleChange = (value: string) => {
+    console.log(`selected ${value}`);
+    setResourceId(value); // Update the resource_id state
+  };
+
+  useEffect(() => {
+    if (isSuccess) {
+      if (data) {
+        message.success(data.message);
+        navigate("/resources-articles");
+      }
+    }
+  }, [isSuccess]);
+
+  useEffect(() => {
+    if (isError) {
+      message.error("Something went wrong");
+    }
+  }, [isError]);
 
   // Handle change in editor content
   const handleEditorChange = (value: string) => {
     setDetail(value); // Set the new value of the editor content
   };
 
+  const resources = getResourcesData?.resources || []; // Default to empty array if undefined
+
   return (
     <div>
       <Typography type="title3">Add Article</Typography>
       <Form className="mt-5" layout="vertical" onFinish={onFinish}>
-        <TextInput name="name" label="Name" placeholder="Enter your name" />
+        <TextInput name="title" label="Name" placeholder="Enter your name" />
+
+        <Form.Item name="resource_id" label="Resources">
+          <Select
+            style={{ width: 120 }}
+            onChange={handleChange}
+            value={resourceId}
+          >
+            {resources.map((resource: { id: number; name: string }) => (
+              <Select.Option key={resource.id} value={resource.id}>
+                {resource.name}
+              </Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
 
         <Form.Item
-          name="thumbnail"
+          name="image_url"
           label="Upload Thumbnail"
           valuePropName="fileList"
           getValueFromEvent={(e) => e.fileList}
@@ -67,7 +123,7 @@ const AddArticle = () => {
         </Form.Item>
 
         <Form.Item
-          name="detail"
+          name="content"
           label="Detail"
           className="h-full"
           rules={[

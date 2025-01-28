@@ -28,7 +28,7 @@ const TopHeader: React.FC<TopHeaderProps> = ({ setCollapsed, collapsed }) => {
         />
       )}
       <div className="flex items-center gap-3">
-        <LogoutIcon onClick={() => navigate("/sign-in")} />
+        <LogoutIcon onClick={() => {localStorage.removeItem("authToken"); navigate("/sign-in");}}/>
         <SettingIcon onClick={() => navigate("/setting")} />
         <div className="flex items-center gap-2">
           {/* Default fallback for Avatar in case ImageUrl is unavailable */}

@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import EditModal from "../../../../components/modals/edit-modal";
 import MomentsForm from "./MomentsForm";
 import { useAddMomentMutation } from "../../../../services/moments";
+import { useNavigate } from "react-router-dom";
+import { message } from "antd";
 
 interface EditModalState {
   open: boolean;
@@ -12,12 +14,28 @@ interface EditMomentsProps {
   setShowEditModal: React.Dispatch<React.SetStateAction<EditModalState>>;
   showEditModal: EditModalState;
 }
-
+// 
 const EditMoments: React.FC<EditMomentsProps> = ({
   setShowEditModal,
   showEditModal,
 }) => {
-  const [addMoment, { isLoading }] = useAddMomentMutation();
+  const navigate = useNavigate();
+  const [addMoment, { isLoading, isSuccess, isError, data }] = useAddMomentMutation();
+
+  useEffect(() => {
+    if (isSuccess) {
+      if (data) {
+        message.success(data.message);
+        navigate("/moments");
+      }
+    }
+  }, [isSuccess]);
+
+  useEffect(() => {
+    if (isError) {
+      message.error("Something went wrong");
+    }
+  }, [isError]);
 
   return (
     <EditModal

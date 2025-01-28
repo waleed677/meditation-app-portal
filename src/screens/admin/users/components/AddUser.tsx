@@ -1,6 +1,7 @@
 import React from "react";
 import AddModal from "../../../../components/modals/add-modal";
 import UserForm from "./UserForm";
+import { useAddUsersMutation } from "../../../../services/users";
 
 // Define the types for the props passed to AddUser
 interface AddUserProps {
@@ -9,8 +10,16 @@ interface AddUserProps {
 }
 
 const AddUser: React.FC<AddUserProps> = ({ setShowAddModal, showAddModal }) => {
+    const [addUsers, { isLoading }] = useAddUsersMutation();
+
   return (
-    <AddModal title="Add User" setOpen={setShowAddModal} open={showAddModal}>
+    <AddModal
+      postData={addUsers}
+      loading={isLoading}
+      title="Add User" 
+      setOpen={setShowAddModal} 
+      open={showAddModal}
+    >
       <UserForm />
     </AddModal>
   );

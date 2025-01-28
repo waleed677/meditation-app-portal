@@ -1,13 +1,41 @@
 import { useNavigate } from "react-router-dom";
-import AppleIcon from "../../../assets/vendors/apple-icon";
-import GoogleIcon from "../../../assets/vendors/google-icon";
 import AuthLayout from "../../../components/auth-layout";
-import IconButton from "../../../components/buttons/icon-button";
-import { Button, Form, Input } from "antd";
-import TextInput from "../../../components/form-inputs/textInput";
+import { Button, Form, Input, message } from "antd";
+import { useSignupMutation } from "../../../services/auth";
+import { useEffect } from "react";
 
 const Index = () => {
   const navigate = useNavigate();
+  const [form] = Form.useForm();
+  const [signup, { isLoading, isSuccess, isError, data }] = useSignupMutation();
+
+  const handleSignUp = async (values: any) => {
+    // const form = new FormData();
+    // form.append("username", values.username);
+    // form.append("email", values.email);
+    // form.append("password", values.password);
+
+    await signup(values).unwrap();
+  };
+
+  useEffect(() => {
+    if (isSuccess) {
+      if (data && data.token) {
+        localStorage.setItem("authToken", data.token);
+        localStorage.setItem("userInfo", JSON.stringify(data.admin));
+        message.success(data.message);
+        navigate("/");
+      } else {
+        message.error("Token not found in response");
+      }
+    }
+  }, [isSuccess]);
+
+  useEffect(() => {
+    if (isError) {
+      message.error("Something went wrong");
+    }
+  }, [isError]);
   return (
     <AuthLayout>
       <div className="flex flex-col gap-3">
@@ -22,7 +50,12 @@ const Index = () => {
           leftIcon={<GoogleIcon />}
           text="Sign in with Google"
         /> */}
-        <Form layout="vertical" className="sm:w-[300px]">
+        <Form
+          layout="vertical"
+          form={form}
+          className="sm:w-[300px]"
+          onFinish={handleSignUp}
+        >
           <Form.Item
             name="username"
             label="Username"
@@ -46,12 +79,22 @@ const Index = () => {
           <Form.Item
             name="password"
             label="Password"
-            rules={[{ required: true }]}
+            // rules={[{ required: true }]}
+            rules={[
+              { required: true, message: "Please input your password!" },
+              { min: 6, message: "Password must be at least 6 characters!" },
+            ]}
           >
             <Input.Password />
           </Form.Item>
-          <Button className="w-full" type="primary" htmlType="submit">
-            Login
+          <Button
+            loading={isLoading}
+            disabled={isLoading}
+            className="w-full"
+            type="primary"
+            htmlType="submit"
+          >
+            Sign Up
           </Button>
           <div
             className="flex justify-center text-black cursor-pointer mt-3"

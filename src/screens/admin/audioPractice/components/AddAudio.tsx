@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AddModal from "../../../../components/modals/add-modal";
 import AudioForm from "./AudioForm";
 import { useAddAudioPracticeMutation } from "../../../../services/audioPractice";
+import { useNavigate } from "react-router-dom";
+import { message } from "antd";
 // Define the types for the props passed to AddUser
 interface AddAudioProps {
   setShowAddModal: React.Dispatch<React.SetStateAction<boolean>>; // State setter for the modal visibility
@@ -12,7 +14,23 @@ const AddAudio: React.FC<AddAudioProps> = ({
   setShowAddModal,
   showAddModal,
 }) => {
-  const [addAudioPractice, { isLoading }] = useAddAudioPracticeMutation();
+  const navigate = useNavigate();
+  const [addAudioPractice, { isLoading, isSuccess, isError, data }] = useAddAudioPracticeMutation();
+  
+  useEffect(() => {
+    if (isSuccess) {
+      if (data) {
+        message.success(data.message);
+        navigate("/audio-practice");
+      }
+    }
+  }, [isSuccess]);
+
+  useEffect(() => {
+    if (isError) {
+      message.error("Something went wrong");
+    }
+  }, [isError]);
   return (
     <AddModal
       postData={addAudioPractice}

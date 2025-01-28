@@ -6,8 +6,16 @@ import { Avatar } from "antd";
 import EditResources from "./components/EditResources";
 import { useState } from "react";
 import DeleteModal from "../../../components/modals/delete-modal";
+import {
+  useGetResourcesQuery,
+  useAddResourcesMutation,
+} from "../../../services/resources";
 
 const Index = () => {
+  const { data, isLoading } = useGetResourcesQuery();
+  const [addResources, { isLoading: deleteLoading }] =
+    useAddResourcesMutation();
+
   const [showEditModal, setShowEditModal] = useState({
     open: false,
     data: null,
@@ -18,22 +26,22 @@ const Index = () => {
       render: (record: { id: string }) => checkRowData(record.id),
       key: "id",
     },
-    {
-      title: "Logo",
-      render: (record: { logoLink: string }) => (
-        <Avatar size="large" src={record.logoLink} alt="" />
-      ),
-      key: "logo",
-    },
+    // {
+    //   title: "Logo",
+    //   render: (record: { image_url: string }) => (
+    //     <Avatar size="large" src={record.image_url} alt="" />
+    //   ),
+    //   key: "logo",
+    // },
     {
       title: "Name",
       render: (record: { name: string }) => checkRowData(record.name),
       key: "name",
     },
     {
-      title: "Create At",
-      render: (record: { createdAt: string }) => checkRowData(record.createdAt),
-      key: "create_at",
+      title: "Description",
+      render: (record: { description: string }) => checkRowData(record.description),
+      key: "description",
     },
     {
       title: "Actions",
@@ -45,25 +53,24 @@ const Index = () => {
             fill="#FF913C"
             className="cursor-pointer"
           />
-          <DeleteModal title="Are you sure you want to delete this resources?" />
+          {record && (
+            <DeleteModal
+              api={addResources}
+              data={record}
+              deleteLoading={deleteLoading}
+              title="Are you sure you want to delete this resources?"
+            />
+          )}
         </div>
       ),
       key: "actions",
     },
   ];
-  const dummyData = [
-    {
-      id: 1,
-      name: "Mindfulness of Body",
-      logoLink:
-        "https://img.freepik.com/free-vector/people-silhouette-logo_361591-2448.jpg?semt=ais_hybrid",
-      createdAt: "15-1-2025",
-    },
-  ];
+
   return (
     <div>
       <TableHeader />
-      <ListTable data={dummyData} columns={columns} />
+      <ListTable data={data?.resources} loading={isLoading} columns={columns} />
       <EditResources
         setShowEditModal={setShowEditModal}
         showEditModal={showEditModal}

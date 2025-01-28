@@ -4,9 +4,12 @@ export const audioPracticeApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "/api",
   }),
+  tagTypes: ['AudioPractice'],
   endpoints: (builder) => ({
     getAudioPractice: builder.query({
       query: () => `audio_practice.php`,
+      providesTags: (result) =>
+        result ? [{ type: 'AudioPractice', id: 'LIST' }] : [],
     }),
     addAudioPractice: builder.mutation({
       query: (body) => ({
@@ -14,6 +17,7 @@ export const audioPracticeApi = createApi({
         method: "POST",
         body,
       }),
+      invalidatesTags: [{ type: 'AudioPractice', id: 'LIST' }],
     }),
   }),
 });

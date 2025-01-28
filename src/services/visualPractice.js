@@ -5,9 +5,12 @@ export const visualPracticeApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "/api", // Ensure this is your correct base URL for the API
   }),
+  tagTypes: ['visualPractices'],
   endpoints: (builder) => ({
     getVisualPractice: builder.query({
       query: () => "visual_practice.php", // Note that this is relative to the baseUrl
+      providesTags: (result) =>
+        result ? [{ type: 'visualPractices', id: 'LIST' }] : [],
     }),
     addVisualPractice: builder.mutation({
       query: (body) => ({
@@ -15,6 +18,7 @@ export const visualPracticeApi = createApi({
         method: "POST",
         body,
       }),
+      invalidatesTags: [{ type: 'visualPractices', id: 'LIST' }],
     }),
   }),
 });

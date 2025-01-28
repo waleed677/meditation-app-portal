@@ -11,6 +11,7 @@ const VideoForm = ({ showEditModal, setShowEditModal }) => {
       data: updatedData,
     });
   };
+  
   return (
     <>
       <TextInput name="title" label="Title" placeholder="Enter your title" />

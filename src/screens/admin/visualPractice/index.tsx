@@ -19,10 +19,12 @@ const Index = () => {
     open: false,
     data: null,
   });
+  
   const [showVideoPlayer, setShowVideoPlayerData] = useState({
     open: false,
     videoLink: null,
   });
+
   const columns = [
     {
       title: "Id",

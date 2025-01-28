@@ -1,19 +1,39 @@
+import { Form, Select } from "antd";
 import TextInput from "../../../../components/form-inputs/textInput";
+import { Label } from "recharts";
 const UserForm = () => {
+  const handleChange = (value: string) => {
+    console.log(`selected ${value}`);
+  };
   return (
     <>
       <TextInput
-        name="first_name"
-        label="First Name"
-        placeholder="Enter your first name"
-      />
-      <TextInput
-        name="last_name"
-        label="Last Name"
-        placeholder="Enter your last name"
+        name="username"
+        label="User Name"
+        placeholder="Enter your user name"
       />
       <TextInput name="email" label="Email" placeholder="Enter your email" />
-      <TextInput name="phone" label="Phone" placeholder="Enter your phone" />
+      <TextInput name="password" label="Password" placeholder="Enter your password" />
+      <Form.Item label="Status" name="status" rules={[{ required: true }]}>
+        <Select
+          defaultValue="Active"
+          onChange={handleChange}
+          options={[
+            { value: "active", label: "Active" },
+            { value: "block", label: "Block" },
+          ]}
+        />
+      </Form.Item>
+      <Form.Item label="Role" name="role" rules={[{ required: true }]}>
+        <Select
+          defaultValue="Admin"
+          onChange={handleChange}
+          options={[
+            { value: "admin", label: "Admin" },
+            { value: "user", label: "User" },
+          ]}
+        />
+      </Form.Item>
     </>
   );
 };
