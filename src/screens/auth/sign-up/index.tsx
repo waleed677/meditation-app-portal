@@ -37,17 +37,6 @@ const Index = () => {
   return (
     <AuthLayout>
       <div className="flex flex-col gap-3">
-        {/* <IconButton
-          onClick={() => navigate("/")}
-          leftIcon={<AppleIcon />}
-          text="Sign in with Apple"
-          bg="#000"
-        />
-        <IconButton
-          onClick={() => navigate("/")}
-          leftIcon={<GoogleIcon />}
-          text="Sign in with Google"
-        /> */}
         <Form
           layout="vertical"
           form={form}

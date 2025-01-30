@@ -4,6 +4,7 @@ export const authApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "/api",
     prepareHeaders: (headers) => {
+      headers.set("Content-Type", "application/json");
       const token = localStorage.getItem("authToken");
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
@@ -17,6 +18,9 @@ export const authApi = createApi({
         url: `admin_auth.php?action=login`,
         method: "POST",
         body,
+        headers: {
+          "Content-Type": "application/json", // example for a different content type
+        },
       }),
     }),
     signup: builder.mutation({
@@ -24,6 +28,9 @@ export const authApi = createApi({
         url: `admin_auth.php?action=register`,
         method: "POST",
         body,
+        headers: {
+          "Content-Type": "application/json", // example for a different content type
+        },
       }),
     }),
     updateUserInfo: builder.mutation({
@@ -31,6 +38,9 @@ export const authApi = createApi({
         url: `admin_auth.php?action=update`,
         method: "POST",
         body,
+        headers: {
+          "Content-Type": "application/json", // example for a different content type
+        },
       }),
     }),
     forgotPassword: builder.mutation({
