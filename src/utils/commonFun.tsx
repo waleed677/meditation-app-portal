@@ -1,6 +1,7 @@
 import { Tag } from "antd";
 import moment from "moment";
 import { IMAGE_BASE_URL } from "../config";
+import ImageUrl from "../assets/images/dummy-user.jpg";
 
 export const checkRowData = (data: string) => {
   if (data) {
@@ -44,6 +45,7 @@ export const renderRole = (status: string) => {
 export const dateFun = (date: string) => {
   return moment(date).format("DD/MM/YYYY");
 };
-export const joinFileLink = (link: string) => {
-  return `${IMAGE_BASE_URL}${link}`;
+
+export const joinFileLink = (link: string | null | undefined) => {
+  return link ? `${IMAGE_BASE_URL}${link}` : ImageUrl;
 };

@@ -10,19 +10,16 @@ const Index = () => {
   const [signup, { isLoading, isSuccess, isError, data }] = useSignupMutation();
 
   const handleSignUp = async (values: any) => {
-    // const form = new FormData();
-    // form.append("username", values.username);
-    // form.append("email", values.email);
-    // form.append("password", values.password);
-
     await signup(values).unwrap();
-  };
+  };  
+  
 
   useEffect(() => {
     if (isSuccess) {
+      console.log("success response", data)
       if (data && data.token) {
         localStorage.setItem("authToken", data.token);
-        localStorage.setItem("userInfo", JSON.stringify(data.admin));
+        localStorage.setItem("userInfo", JSON.stringify(data.user));
         message.success(data.message);
         navigate("/");
       } else {
@@ -32,10 +29,11 @@ const Index = () => {
   }, [isSuccess]);
 
   useEffect(() => {
-    if (isError) {
-      message.error("Something went wrong");
+    if (isError && data) {
+      message.error(data.error?.message || 'Something went wrong. Please try again.');
     }
-  }, [isError]);
+  }, [isError, data]);
+  
   return (
     <AuthLayout>
       <div className="flex flex-col gap-3">

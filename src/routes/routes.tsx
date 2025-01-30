@@ -19,6 +19,8 @@ import ResourcesEditArticles from "../screens/admin/resources-article/components
 import Moments from "../screens/admin/moments";
 import Setting from "../screens/admin/setting";
 import PageNotFound from "../screens/PageNotFound";
+import ForgotPassword from "../screens/auth/forgot-password";
+import ResetPassword from "../screens/auth/reset-password";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -44,6 +46,8 @@ const router = createBrowserRouter(
       </Route>
       <Route path="/sign-in" element={<Signin />} />
       <Route path="/sign-up" element={<Signup />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
       <Route path="*" element={<PageNotFound />} />
     </Route>
   )
