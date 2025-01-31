@@ -2,8 +2,7 @@ import { Col, Row } from "antd";
 import SmallCard from "../../../components/cards/small-card";
 import { useGetUsersQuery } from "../../../services/users";
 import {
-  useGetVisualPracticeQuery,
-  useAddVisualPracticeMutation,
+  useGetVisualPracticeQuery
 } from "../../../services/visualPractice";
 import { useGetAudioPracticeQuery } from "../../../services/audioPractice";
 import { FaUsers, FaUserSecret, FaVideo, FaVolumeUp } from "react-icons/fa";
