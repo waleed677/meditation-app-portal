@@ -8,11 +8,11 @@ import {
 import { useGetAudioPracticeQuery } from "../../../services/audioPractice";
 import { FaUsers, FaUserSecret, FaVideo, FaVolumeUp } from "react-icons/fa";
 
-import { RiEdit2Fill } from "react-icons/ri";
+
 import ListTable from "../../../components/table";
 import { checkRowData, dateFun, joinFileLink } from "../../../utils/commonFun";
 import { useState } from "react";
-import DeleteModal from "../../../components/modals/delete-modal";
+
 import ViewVideoPlayer from "../visualPractice/components/ViewVideoPlayer";
 import { Tag } from "antd";
 const Index = () => {
@@ -21,12 +21,7 @@ const Index = () => {
   const { data: getTotalAudioCount } = useGetAudioPracticeQuery({});
 
   const { data: getTotalUserData, isLoading } = useGetVisualPracticeQuery({});
-  const [addVisualPractice, { isLoading: deleteLoading }] =
-    useAddVisualPracticeMutation();
-  const [showEditModal, setShowEditModal] = useState({
-    open: false,
-    data: null,
-  });
+  
 
   const [showVideoPlayer, setShowVideoPlayerData] = useState<{
     open: boolean;

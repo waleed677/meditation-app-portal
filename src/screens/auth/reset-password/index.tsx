@@ -9,9 +9,13 @@ const Index = () => {
   const location = useLocation(); // Get current URL
   const queryParams = new URLSearchParams(location.search);
   const token = queryParams.get("token");
-  const [resetPassword, { isLoading, isSuccess, isError, data }] = useResetPasswordMutation();
+  const [resetPassword, { isLoading, isSuccess, data }] =
+    useResetPasswordMutation();
 
-  const onFinish = async (values: { password: string; password_confirmation: string; }) => {
+  const onFinish = async (values: {
+    password: string;
+    password_confirmation: string;
+  }) => {
     if (!token) {
       message.error("Token not found in URL");
       return;
@@ -34,10 +38,18 @@ const Index = () => {
     <AuthLayout>
       <div className="flex flex-col gap-3">
         <Form onFinish={onFinish} layout="vertical" className="sm:w-[300px]">
-          <Form.Item name="password" label="New Password" rules={[{ required: true }]}>
+          <Form.Item
+            name="password"
+            label="New Password"
+            rules={[{ required: true }]}
+          >
             <Input />
           </Form.Item>
-          <Form.Item name="password_confirmation" label="Confirm Password" rules={[{ required: true }]}>
+          <Form.Item
+            name="password_confirmation"
+            label="Confirm Password"
+            rules={[{ required: true }]}
+          >
             <Input />
           </Form.Item>
           <Button

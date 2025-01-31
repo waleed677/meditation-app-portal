@@ -2,7 +2,7 @@ import { Avatar, Layout } from "antd";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import LogoutIcon from "../../../assets/vendors/logout-icon";
 import SettingIcon from "../../../assets/vendors/setting-icon";
-import ImageUrl from "../../../assets/images/dummy-user.jpg";
+
 import { useNavigate } from "react-router-dom";
 import { joinFileLink } from "../../../utils/commonFun";
 
