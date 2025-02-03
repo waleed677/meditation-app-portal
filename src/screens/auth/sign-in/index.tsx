@@ -20,6 +20,8 @@ const Index = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Access-Control-Allow-Origin":
+            "https://meditation-app-portal.vercel.app",
         },
         body: JSON.stringify(values),
       }
