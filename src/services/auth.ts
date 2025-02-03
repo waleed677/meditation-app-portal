@@ -15,7 +15,8 @@ export const authApi = createApi({
         method: "POST",
         body,
         headers: {
-          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Origin":
+            "https://meditation-app-portal.vercel.app",
           // "Access-Control-Allow-Credentials": "false",
           "Content-Type": "application/json", // example for a different content type
         },
