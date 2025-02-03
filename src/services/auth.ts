@@ -2,10 +2,11 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "/api",
+    baseUrl: "https://mintcream-cod-221842.hostingersite.com/api",
     prepareHeaders: (headers) => {
       headers.set("Content-Type", "application/json");
-      headers.set("Content-Type", "application/json");
+      headers.append("Access-Control-Allow-Origin", "*");
+      headers.append("Access-Control-Allow-Credentials", "true");
       const token = localStorage.getItem("authToken");
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
@@ -20,6 +21,8 @@ export const authApi = createApi({
         method: "POST",
         body,
         headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Credentials": "true",
           "Content-Type": "application/json", // example for a different content type
         },
       }),
