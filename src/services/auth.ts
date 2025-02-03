@@ -1,8 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const authApi = createApi({
   reducerPath: "authApi",
+
   baseQuery: fetchBaseQuery({
     baseUrl: "https://meditation.baramdatsol.com/api",
+    mode: "cors",
     prepareHeaders: (headers) => {
       headers.set("Content-Type", "application/json");
       return headers;
@@ -13,6 +15,7 @@ export const authApi = createApi({
       query: (body) => ({
         url: `admin_auth.php?action=login`,
         method: "POST",
+        mode: "cors",
         body,
         headers: {
           "Access-Control-Allow-Origin":

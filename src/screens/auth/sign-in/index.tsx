@@ -18,6 +18,7 @@ const Index = () => {
       "https://meditation.baramdatsol.com/admin_auth.php",
       {
         method: "POST",
+        mode: "cors",
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin":
