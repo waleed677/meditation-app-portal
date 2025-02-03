@@ -5,6 +5,7 @@ export const authApi = createApi({
     baseUrl: "/api",
     prepareHeaders: (headers) => {
       headers.set("Content-Type", "application/json");
+      headers.set("Content-Type", "application/json");
       const token = localStorage.getItem("authToken");
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
