@@ -3,12 +3,13 @@ import react from "@vitejs/plugin-react";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
   server: {
     proxy: {
-      // "/api": "http://localhost/meditation_app_api",
-      // Replace with your API server URL
-      "/auth": "https://dummyjson.com/auth/login", // Replace with your API server URL
+      "/api": {
+        target: "https://meditation.baramdatsol.com",
+        secure: false,
+      },
     },
   },
+  plugins: [react()],
 });

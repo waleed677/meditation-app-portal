@@ -5,10 +5,6 @@ export const authApi = createApi({
     baseUrl: "https://meditation.baramdatsol.com/api",
     prepareHeaders: (headers) => {
       headers.set("Content-Type", "application/json");
-      const token = localStorage.getItem("authToken");
-      if (token) {
-        headers.set("Authorization", `Bearer ${token}`);
-      }
       return headers;
     },
   }),
@@ -19,7 +15,7 @@ export const authApi = createApi({
         method: "POST",
         body,
         headers: {
-          // "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Origin": "*",
           // "Access-Control-Allow-Credentials": "false",
           "Content-Type": "application/json", // example for a different content type
         },
