@@ -19,8 +19,8 @@ export const authApi = createApi({
         method: "POST",
         body: JSON.stringify(body),
         headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Credentials": "true",
+          // "Access-Control-Allow-Origin": "*",
+          // "Access-Control-Allow-Credentials": "false",
           "Content-Type": "application/json", // example for a different content type
         },
       }),
