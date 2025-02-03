@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "/api",
+    baseUrl: "/auth",
     prepareHeaders: (headers) => {
       headers.set("Content-Type", "application/json");
       const token = localStorage.getItem("authToken");
@@ -15,7 +15,7 @@ export const authApi = createApi({
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (body) => ({
-        url: `admin_auth.php?action=login`,
+        url: `login`,
         method: "POST",
         body,
         headers: {

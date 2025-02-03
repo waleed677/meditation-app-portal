@@ -8,7 +8,7 @@ export default defineConfig({
     proxy: {
       // "/api": "http://localhost/meditation_app_api",
       // Replace with your API server URL
-      "/api": "https://meditation.baramdatsol.com", // Replace with your API server URL
+      "/auth": "https://dummyjson.com/auth/login", // Replace with your API server URL
     },
   },
 });
