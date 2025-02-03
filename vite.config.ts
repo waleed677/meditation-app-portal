@@ -8,7 +8,8 @@ export default defineConfig({
     proxy: {
       "/api": {
         target: "https://meditation.baramdatsol.com",
-        changeOrigin: false,
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
       },
     },
   },
