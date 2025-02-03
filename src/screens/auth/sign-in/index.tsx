@@ -17,7 +17,7 @@ const Index = () => {
     // action=login
     await login(values).unwrap();
     const loginApi = await fetch(
-      "https://meditation.baramdatsol.com/admin_auth.php?action=login",
+      "https://meditation.baramdatsol.com/admin_auth.php",
       {
         method: "POST",
         headers: {
