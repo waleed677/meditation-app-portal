@@ -15,6 +15,7 @@ const Index = () => {
   }) => {
     values["action"] = "login"; // Add extra field
     // action=login
+    await login(values).unwrap();
     const loginApi = await fetch(
       "https://meditation.baramdatsol.com/admin_auth.php?action=login",
       {
@@ -25,7 +26,6 @@ const Index = () => {
         body: JSON.stringify(values),
       }
     );
-    await login(values).unwrap();
   };
 
   useEffect(() => {
