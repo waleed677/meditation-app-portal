@@ -1,33 +1,33 @@
 import { useNavigate } from "react-router-dom";
 import AuthLayout from "../../../components/auth-layout";
 import { Button, Form, Input, message } from "antd";
-import { useForgotPasswordMutation } from "../../../services/auth";
+// import { useForgotPasswordMutation } from "../../../services/auth";
 import { useEffect } from "react";
 
 const Index = () => {
-  const navigate = useNavigate();
-  const [forgotPassword, { isLoading, isSuccess, isError, data }] = useForgotPasswordMutation();
+  //const navigate = useNavigate();
+//   const [forgotPassword, { isLoading, isSuccess, isError, data }] = useForgotPasswordMutation();
 
   const onFinish = async (values: { email: string; }) => {
-    await forgotPassword(values).unwrap();
+    //await forgotPassword(values).unwrap();
   };
 
-  useEffect(() => {
-    if (isSuccess) {
-      if (data) {
-        message.success(data.msg);
-        navigate("/");
-      } else {
-        message.error("Token not found in response");
-      }
-    }
-  }, [isSuccess]);
+//   useEffect(() => {
+//     if (isSuccess) {
+//       if (data) {
+//         message.success(data.msg);
+//         navigate("/");
+//       } else {
+//         message.error("Token not found in response");
+//       }
+//     }
+//   }, [isSuccess]);
 
-  useEffect(() => {
-    if (isError) {
-      message.error("Something went wrong");
-    }
-  }, [isError]);
+//   useEffect(() => {
+//     if (isError) {
+//       message.error("Something went wrong");
+//     }
+//   }, [isError]);
   return (
     <AuthLayout>
       <div className="flex flex-col gap-3">
@@ -36,8 +36,8 @@ const Index = () => {
             <Input.OTP />
           </Form.Item>
           <Button
-            disabled={isLoading}
-            loading={isLoading}
+            // disabled={isLoading}
+            // loading={isLoading}
             className="w-full"
             type="primary"
             htmlType="submit"

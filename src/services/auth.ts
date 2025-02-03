@@ -16,7 +16,7 @@ export const authApi = createApi({
     login: builder.mutation({
       query: (body) => ({
         url: `admin_auth.php?action=login`,
-        method: "GET",
+        method: "POST",
         body,
         headers: {
           "Content-Type": "application/json", // example for a different content type

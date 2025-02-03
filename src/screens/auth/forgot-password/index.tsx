@@ -1,35 +1,47 @@
 import { useNavigate } from "react-router-dom";
 import AuthLayout from "../../../components/auth-layout";
-import { Button, Form, Input, message } from "antd";
-import { useForgotPasswordMutation } from "../../../services/auth";
+import { Button, Form, Input } from "antd";
 import { useEffect } from "react";
+// import { useForgotPasswordMutation } from "../../../services/auth";
+// import { useEffect } from "react";
 
 const Index = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
-  const [forgotPassword, { isLoading, isSuccess, isError, data }] = useForgotPasswordMutation();
+  // const [forgotPassword, { isLoading, isSuccess, isError, data }] = useForgotPasswordMutation();
 
-  const onFinish = async (values: { email: string; }) => {
-    await forgotPassword(values).unwrap();
+  const onFinish = async (values: { email: string }) => {
+    console.log("values", values);
+    // await forgotPassword(values).unwrap();
   };
 
-  useEffect(() => {
-    if (isSuccess) {
-      if (data) {
-        message.success(data.msg);
-        // let email= form.getFieldValue("email")
-        navigate("/otp-verification");
-      } else {
-        message.error("Token not found in response");
-      }
-    }
-  }, [isSuccess]);
+  // useEffect(() => {
+  //   if (isSuccess) {
+  //     if (data) {
+  //       message.success(data.msg);
+  //       // let email= form.getFieldValue("email")
+  //       navigate("/otp-verification");
+  //     } else {
+  //       message.error("Token not found in response");
+  //     }
+  //   }
+  // }, [isSuccess]);
+  // useEffect(() => {
+  //   if (isSuccess) {
+  //     if (data) {
+  //       message.success(data.msg);
+  //       navigate("/");
+  //     } else {
+  //       message.error("Token not found in response");
+  //     }
+  //   }
+  // }, [isSuccess]);
 
-  useEffect(() => {
-    if (isError) {
-      message.error("Something went wrong");
-    }
-  }, [isError]);
+  // useEffect(() => {
+  //   if (isError) {
+  //     message.error("Something went wrong");
+  //   }
+  // }, [isError]);
   return (
     <AuthLayout>
       <div className="flex flex-col gap-3">
@@ -38,8 +50,8 @@ const Index = () => {
             <Input />
           </Form.Item>
           <Button
-            disabled={isLoading}
-            loading={isLoading}
+            // disabled={isLoading}
+            // loading={isLoading}
             className="w-full"
             type="primary"
             htmlType="submit"
