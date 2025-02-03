@@ -14,14 +14,17 @@ const Index = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      console.log("Full API Response:", data); // Log the entire response
-      if (data && data.token) {
-        localStorage.setItem("authToken", data.token); // Store the token
-        localStorage.setItem("userInfo", JSON.stringify(data.admin)); // Store user info
-        message.success(data.message);
-        navigate("/");
+      if (data) {
+        if (data.token) {
+          localStorage.setItem("authToken", data.token);
+          localStorage.setItem("userInfo", JSON.stringify(data.user));
+          message.success(data.message);
+          navigate("/");
+        } else {
+          message.error("Token not found in response");
+        }
       } else {
-        message.error("Token not found in response");
+        message.error("Something went wrong!");
       }
     }
   }, [isSuccess]);
@@ -56,10 +59,18 @@ const Index = () => {
           >
             <Input />
           </Form.Item>
+          <div
+            className="flex justify-end text-[#2762A6] cursor-pointer"
+            onClick={() => {
+              navigate("/forgot-password");
+            }}
+          >
+            Forgot Password?
+          </div>
           <Button
             disabled={isLoading}
             loading={isLoading}
-            className="w-full"
+            className="w-full mt-2"
             type="primary"
             htmlType="submit"
           >

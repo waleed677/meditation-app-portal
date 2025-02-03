@@ -1,5 +1,6 @@
 import { Form, Select } from "antd";
 import TextInput from "../../../../components/form-inputs/textInput";
+import TextArea from "antd/es/input/TextArea";
 const UserForm = ({ type }: { type?: string }) => {
   const handleChange = (value: string) => {
     console.log(`selected ${value}`);
@@ -38,6 +39,9 @@ const UserForm = ({ type }: { type?: string }) => {
             { value: "user", label: "User" },
           ]}
         />
+      </Form.Item>
+      <Form.Item label="Description" name="description">
+        <TextArea placeholder="Write Some Text...." />
       </Form.Item>
     </>
   );
