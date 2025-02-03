@@ -15,6 +15,16 @@ const Index = () => {
   }) => {
     values["action"] = "login"; // Add extra field
     // action=login
+    const loginApi = await fetch(
+      "https://meditation.baramdatsol.com/admin_auth.php?action=login",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      }
+    );
     await login(values).unwrap();
   };
 
