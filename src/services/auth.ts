@@ -17,9 +17,9 @@ export const authApi = createApi({
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (body) => ({
-        url: `admin_auth.php`,
+        url: `admin_auth.php?action=login`,
         method: "POST",
-        body,
+        body: JSON.stringify(body),
         headers: {
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Credentials": "true",
