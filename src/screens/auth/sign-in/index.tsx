@@ -26,6 +26,7 @@ const Index = () => {
         body: JSON.stringify(values),
       }
     );
+    console.log(loginApi);
   };
 
   useEffect(() => {
