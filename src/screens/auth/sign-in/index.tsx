@@ -14,21 +14,6 @@ const Index = () => {
     action?: string;
   }) => {
     values["action"] = "login"; // Add extra field
-    const loginApi = await fetch(
-      "https://meditation.baramdatsol.com/admin_auth.php",
-      {
-        method: "POST",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin":
-            "https://meditation-app-portal.vercel.app",
-        },
-        body: JSON.stringify(values),
-      }
-    );
-    console.log(loginApi);
-    // action=login
     await login(values).unwrap();
   };
 
