@@ -3,7 +3,7 @@ export const authApi = createApi({
   reducerPath: "authApi",
 
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://meditation.baramdatsol.com",
+    baseUrl: "https://mintcream-cod-221842.hostingersite.com",
     mode: "cors",
     prepareHeaders: (headers) => {
       headers.set("Content-Type", "application/json");
@@ -19,7 +19,7 @@ export const authApi = createApi({
         body,
         headers: {
           "Access-Control-Allow-Origin":
-            "https://meditation-app-portal.vercel.app",
+            "https://mintcream-cod-221842.hostingersite.com",
           // "Access-Control-Allow-Credentials": "false",
           "Content-Type": "application/json", // example for a different content type
         },
