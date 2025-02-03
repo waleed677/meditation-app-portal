@@ -5,7 +5,6 @@ import { useForgotPasswordMutation } from "../../../services/auth";
 import { useEffect } from "react";
 
 const Index = () => {
-  const [form] = Form.useForm();
   const navigate = useNavigate();
   const [forgotPassword, { isLoading, isSuccess, isError, data }] = useForgotPasswordMutation();
 
@@ -17,8 +16,7 @@ const Index = () => {
     if (isSuccess) {
       if (data) {
         message.success(data.msg);
-        // let email= form.getFieldValue("email")
-        navigate("/otp-verification");
+        navigate("/");
       } else {
         message.error("Token not found in response");
       }
@@ -33,9 +31,9 @@ const Index = () => {
   return (
     <AuthLayout>
       <div className="flex flex-col gap-3">
-        <Form form={form} onFinish={onFinish} layout="vertical" className="sm:w-[300px]">
-          <Form.Item name="email" label="Email" rules={[{ required: true }]}>
-            <Input />
+        <Form onFinish={onFinish} layout="vertical" className="sm:w-[300px]">
+          <Form.Item name="otp" label="Otp" rules={[{ required: true },{ pattern: /^[0-9]{6}$/, message: "OTP must be 6 digits" }]}>
+            <Input.OTP />
           </Form.Item>
           <Button
             disabled={isLoading}
@@ -44,16 +42,16 @@ const Index = () => {
             type="primary"
             htmlType="submit"
           >
-            Forgot Password
+            Verify Otp
           </Button>
-          <div
+          {/* <div
             className="flex justify-center text-black cursor-pointer mt-2"
             onClick={() => {
               navigate("/sign-in");
             }}
           >
             Back to login
-          </div>
+          </div> */}
         </Form>
       </div>
     </AuthLayout>

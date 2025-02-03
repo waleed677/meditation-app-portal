@@ -21,7 +21,7 @@ import Setting from "../screens/admin/setting";
 import PageNotFound from "../screens/PageNotFound";
 import ForgotPassword from "../screens/auth/forgot-password";
 import ResetPassword from "../screens/auth/reset-password";
-
+import Otp from "../screens/auth/otp-screen"
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/">
@@ -48,6 +48,7 @@ const router = createBrowserRouter(
       <Route path="/sign-up" element={<Signup />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password" element={<ResetPassword />} />
+      <Route path="/otp-verification" element={<Otp />} />
       <Route path="*" element={<PageNotFound />} />
     </Route>
   )
