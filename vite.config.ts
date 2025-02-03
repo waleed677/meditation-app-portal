@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     cors: {
-      origin: "https://meditation.baramdatsol.com", // Your CORS origin for the frontend
+      origin: "https://meditation-app-portal.vercel.app/", // Your CORS origin for the frontend
     },
     proxy: {
       "/api": {
