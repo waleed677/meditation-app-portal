@@ -8,7 +8,13 @@ const Index = () => {
   const navigate = useNavigate();
   const [login, { isLoading, isSuccess, isError, data }] = useLoginMutation();
 
-  const onFinish = async (values: { email: string; password: string }) => {
+  const onFinish = async (values: {
+    email: string;
+    password: string;
+    action?: string;
+  }) => {
+    values["action"] = "login"; // Add extra field
+    // action=login
     await login(values).unwrap();
   };
 
