@@ -5,13 +5,6 @@ export const authApi = createApi({
     baseUrl: "/api",
     prepareHeaders: (headers) => {
       headers.set("Content-Type", "application/json");
-      headers.append("Access-Control-Allow-Origin", "*");
-      headers.append("Access-Control-Allow-Credentials", "true");
-      const token = localStorage.getItem("authToken");
-      if (token) {
-        headers.set("Authorization", `Bearer ${token}`);
-      }
-      return headers;
     },
   }),
   endpoints: (builder) => ({
