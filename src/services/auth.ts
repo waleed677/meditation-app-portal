@@ -5,7 +5,6 @@ export const authApi = createApi({
     baseUrl: "https://mintcream-cod-221842.hostingersite.com/api",
     prepareHeaders: (headers) => {
       headers.set("Content-Type", "application/json");
-      headers.set("Content-Type", "application/json");
       const token = localStorage.getItem("authToken");
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
@@ -16,7 +15,7 @@ export const authApi = createApi({
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (body) => ({
-        url: `admin_auth.php?action=login`,
+        url: `admin_auth.php`,
         method: "POST",
         body,
         headers: {
@@ -26,7 +25,7 @@ export const authApi = createApi({
     }),
     signup: builder.mutation({
       query: (body) => ({
-        url: `admin_auth.php?action=register`,
+        url: `admin_auth.php`,
         method: "POST",
         body,
         headers: {
