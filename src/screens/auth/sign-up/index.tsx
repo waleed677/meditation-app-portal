@@ -10,13 +10,13 @@ const Index = () => {
   const [signup, { isLoading, isSuccess, isError, data }] = useSignupMutation();
 
   const handleSignUp = async (values: any) => {
+    values["action"] = "register";
     await signup(values).unwrap();
-  };  
-  
+  };
 
   useEffect(() => {
     if (isSuccess) {
-      console.log("success response", data)
+      console.log("success response", data);
       if (data && data.token) {
         localStorage.setItem("authToken", data.token);
         localStorage.setItem("userInfo", JSON.stringify(data.user));
@@ -30,10 +30,12 @@ const Index = () => {
 
   useEffect(() => {
     if (isError && data) {
-      message.error(data.error?.message || 'Something went wrong. Please try again.');
+      message.error(
+        data.error?.message || "Something went wrong. Please try again."
+      );
     }
   }, [isError, data]);
-  
+
   return (
     <AuthLayout>
       <div className="flex flex-col gap-3">
