@@ -3,7 +3,7 @@ export const authApi = createApi({
   reducerPath: "authApi",
 
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://mintcream-cod-221842.hostingersite.com/api",
+    baseUrl: "/auth",
     mode: "cors",
     prepareHeaders: (headers) => {
       headers.set("Content-Type", "application/json");
@@ -13,7 +13,7 @@ export const authApi = createApi({
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (body) => ({
-        url: `admin_auth.php?action=login`,
+        url: `login`,
         method: "POST",
         mode: "cors",
         body,

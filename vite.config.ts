@@ -8,7 +8,7 @@ export default defineConfig({
     proxy: {
       // "/api": "http://localhost/meditation_app_api",
       // Replace with your API server URL
-      "/api": "https://mintcream-cod-221842.hostingersite.com", // Replace with your API server URL
+      "/auth": "https://dummyjson.com", // Replace with your API server URL
     },
   },
 });
