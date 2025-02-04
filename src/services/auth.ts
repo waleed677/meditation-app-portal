@@ -5,6 +5,7 @@ export const authApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://mintcream-cod-221842.hostingersite.com/api",
     mode: "cors",
+    credentials: "include",
     prepareHeaders: (headers) => {
       headers.set("Content-Type", "application/json");
       return headers;
@@ -18,8 +19,6 @@ export const authApi = createApi({
         mode: "cors",
         body,
         headers: {
-          "Access-Control-Allow-Origin":
-            "https://mintcream-cod-221842.hostingersite.com",
           // "Access-Control-Allow-Credentials": "false",
           "Content-Type": "application/json", // example for a different content type
         },
