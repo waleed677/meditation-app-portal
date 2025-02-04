@@ -3,7 +3,7 @@ export const authApi = createApi({
   reducerPath: "authApi",
 
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://mintcream-cod-221842.hostingersite.com/api",
+    baseUrl: "/api",
     mode: "cors",
     credentials: "include",
     prepareHeaders: (headers) => {
