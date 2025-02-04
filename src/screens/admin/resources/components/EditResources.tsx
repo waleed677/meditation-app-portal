@@ -26,9 +26,12 @@ const EditResources: React.FC<EditResourcesProps> = ({
 
   useEffect(() => {
     if (isSuccess) {
-      if (data) {
+      if (data && data.status === "success") {
         message.success(data.message);
         navigate("/resources");
+      }
+      else {
+        message.error(data?.message);
       }
     }
   }, [isSuccess]);
@@ -38,7 +41,7 @@ const EditResources: React.FC<EditResourcesProps> = ({
       message.error("Something went wrong");
     }
   }, [isError]);
-  
+
   return (
     <EditModal
       loading={isLoading}
@@ -51,7 +54,7 @@ const EditResources: React.FC<EditResourcesProps> = ({
       <ResourcesForm
         setShowEditModal={setShowEditModal}
         showEditModal={showEditModal}
-       />
+      />
     </EditModal>
   );
 };

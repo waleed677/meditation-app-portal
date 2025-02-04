@@ -23,21 +23,23 @@ const EditPractices: React.FC<EditPracticesProps> = ({
 }) => {
   const navigate = useNavigate();
   const [addPractices, { isLoading, isSuccess, isError, data }] = useAddPracticesMutation();
-  
+
   useEffect(() => {
     if (isSuccess) {
-      if (data) {
+      if (data && data.status === "success") {
         message.success(data.message);
         navigate("/practices");
+      } else {
+        message.error(data?.message);
       }
     }
   }, [isSuccess]);
 
   useEffect(() => {
     if (isError) {
-      message.error("Something went wrong");
+      message.error(data?.message || "Something went wrong");
     }
-  }, [isError]);
+  }, [isError, data]);
 
   return (
     <EditModal
@@ -48,7 +50,7 @@ const EditPractices: React.FC<EditPracticesProps> = ({
       setEditModal={setShowEditModal}
       editModal={showEditModal}
     >
-      <PracticesForm         
+      <PracticesForm
         setShowEditModal={setShowEditModal}
         showEditModal={showEditModal} />
     </EditModal>

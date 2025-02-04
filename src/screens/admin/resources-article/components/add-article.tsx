@@ -10,7 +10,7 @@ import { useGetResourcesQuery } from "../../../../services/resources";
 const AddArticle = () => {
   const navigate = useNavigate();
   const [resourceId, setResourceId] = useState<string | null>(null); // State to store selected resource_id
-  const [addResourcesArticles, { isSuccess, isError, data }] =
+  const [addResourcesArticles, { isLoading, isSuccess, isError, data }] =
     useAddResourcesArticlesMutation();
   const { data: getResourcesData } = useGetResourcesQuery({});
 
@@ -56,9 +56,11 @@ const AddArticle = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      if (data) {
+      if (data && data.status === "success") {
         message.success(data.message);
         navigate("/resources-articles");
+      } else {
+        message.error(data?.message);
       }
     }
   }, [isSuccess]);
@@ -82,7 +84,12 @@ const AddArticle = () => {
       <Form className="mt-5" layout="vertical" onFinish={onFinish}>
         <TextInput name="title" label="Name" placeholder="Enter your name" />
 
-        <Form.Item name="resource_id" label="Resources">
+        <Form.Item name="resource_id" label="Resources" rules={[
+          {
+            required: true,
+            message: "Resource is Required.",
+          },
+        ]}>
           <Select
             onChange={handleChange}
             value={resourceId}
@@ -111,6 +118,8 @@ const AddArticle = () => {
             listType="picture"
             accept="image/*"
             beforeUpload={() => false}
+            multiple={false}
+            maxCount={1}
           >
             <div className="border-2 border-dashed h-[60px] w-[200px] rounded-lg border-primary-500 flex items-center justify-center cursor-pointer">
               <p className="text-primary-500 font-medium text-xs">
@@ -147,7 +156,7 @@ const AddArticle = () => {
 
         <div className="flex items-center gap-3 justify-end">
           <Button onClick={() => navigate(-1)}>Cancel</Button>
-          <Button htmlType="submit" type="primary">
+          <Button loading={isLoading} disabled={isLoading} htmlType="submit" type="primary">
             Save
           </Button>
         </div>

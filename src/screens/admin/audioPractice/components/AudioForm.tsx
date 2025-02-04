@@ -42,7 +42,7 @@ const AudioForm: React.FC<AudioFormProps> = ({
         getValueFromEvent={(e) => e.fileList}
         rules={[
           {
-            required: showEditModal?.data?.file_url ? false : true,
+            required: showEditModal?.data?.file_url ? true : true,
             message: "Please upload a audio.",
           },
         ]}
@@ -52,6 +52,8 @@ const AudioForm: React.FC<AudioFormProps> = ({
             listType="picture"
             accept="audio/*"
             beforeUpload={() => false}
+            multiple={false}
+            maxCount={1}
           >
             <div className="border-2 border-dashed h-[60px] w-[200px] rounded-lg border-primary-500 flex items-center justify-center cursor-pointer ">
               <p className="text-primary-500 font-medium text-xs">

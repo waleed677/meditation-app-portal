@@ -43,7 +43,7 @@ const ResourcesForm: React.FC<ResourcesFormProps> = ({
         getValueFromEvent={(e) => e.fileList}
         rules={[
           {
-            required: showEditModal?.data?.image_url ? false : true,
+            required: showEditModal?.data?.image_url ? true : true,
             message: "Please upload a image.",
           },
         ]}
@@ -53,6 +53,8 @@ const ResourcesForm: React.FC<ResourcesFormProps> = ({
             listType="picture"
             accept="image/*"
             beforeUpload={() => false}
+            multiple={false}
+            maxCount={1}
           >
             <div className="border-2 border-dashed h-[60px] w-[200px] rounded-lg border-primary-500 flex items-center justify-center cursor-pointer">
               <p className="text-primary-500 font-medium text-xs">

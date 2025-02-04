@@ -23,21 +23,21 @@ const EditVideo: React.FC<EditVideoProps> = ({
 }) => {
   const navigate = useNavigate();
   const [addVisualPractice, { isLoading, isSuccess, isError, data }] = useAddVisualPracticeMutation();
-  
+
   useEffect(() => {
     if (isSuccess) {
-      if (data) {
+      if (data && data.status === "success") {
         message.success(data.message);
         navigate("/visual-practice");
-      }
+      } else { message.error(data?.message); }
     }
   }, [isSuccess]);
 
   useEffect(() => {
     if (isError) {
-      message.error("Something went wrong");
+      message.error(data.message || "Something went wrong");
     }
-  }, [isError]);
+  }, [isError, data]);
 
   return (
     <EditModal

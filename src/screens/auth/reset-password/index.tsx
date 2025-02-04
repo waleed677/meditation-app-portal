@@ -17,7 +17,7 @@ const Index = () => {
     password_confirmation: string;
 
   }) => {
-   
+
     // if(values.password!==values.password_confirmation){
     //   message.error();
     // }
@@ -28,9 +28,9 @@ const Index = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      if (data && data.status=="success") {
+      if (data && data.status == "success") {
         message.success(data.msg);
-        // navigate("/");
+        navigate("/");
       } else {
         message.error(data.msg);
       }

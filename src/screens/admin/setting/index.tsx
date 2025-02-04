@@ -11,11 +11,11 @@ interface UserData {
   username: string;
   email: string;
   description: string;
-  logo?: string; // Optional, since the logo can be null or undefined
+  profile_logo?: string; // Optional, since the logo can be null or undefined
 }
 
 const Index = () => {
-  const userInfo = localStorage.getItem("userInfo");
+  const userInfo = localStorage?.getItem("userInfo");
   const [userData, setUserData] = useState<UserData | null>(null); // Define state type
   const [showEditModal, setShowEditModal] = useState<{
     open: boolean;
@@ -26,7 +26,7 @@ const Index = () => {
   });
 
   useEffect(() => {
-    const userData = userInfo ? JSON.parse(userInfo) : null;
+    const userData = userInfo ? JSON?.parse(userInfo) : null;
     if (userData) {
       setUserData(userData);
     }
@@ -49,7 +49,7 @@ const Index = () => {
                     username: userData?.username,
                     email: userData?.email,
                     description: userData?.description,
-                    logo: userData?.logo,
+                    logo: userData?.profile_logo,
                   },
                 })
               }
@@ -60,7 +60,7 @@ const Index = () => {
           <div className="flex items-center flex-col gap-3">
             <Avatar
               className="border border-zinc-300"
-              src={joinFileLink(userData?.logo)}
+              src={joinFileLink(userData?.profile_logo)}
               alt=""
               size={70}
             />
@@ -68,7 +68,7 @@ const Index = () => {
               <h3 className="text-lg font-semibold text-center mb-[-2px]">
                 {userData?.username
                   ? userData.username.charAt(0).toUpperCase() +
-                    userData.username.slice(1)
+                  userData.username.slice(1)
                   : ""}
               </h3>
               <p className="text-xs text-center">{userData?.email}</p>

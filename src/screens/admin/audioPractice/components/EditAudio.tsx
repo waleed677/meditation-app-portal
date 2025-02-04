@@ -27,9 +27,11 @@ const EditAudio: React.FC<EditAudioProps> = ({
 
   useEffect(() => {
     if (isSuccess) {
-      if (data) {
+      if (data && data.status === "success") {
         message.success(data.message);
         navigate("/audio-practice");
+      } else {
+        message.error(data?.message);
       }
     }
   }, [isSuccess]);

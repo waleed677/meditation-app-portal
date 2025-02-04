@@ -1,5 +1,5 @@
 import { ExclamationCircleFilled } from "@ant-design/icons";
-import { Modal } from "antd";
+import { message, Modal } from "antd";
 import { useState } from "react";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 
@@ -14,6 +14,7 @@ interface DeleteConfirmProps {
   setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   api: (form: FormData) => void; // Function type for api
   deleteLoading?: boolean;
+  deleteSuccess?: boolean;
 }
 
 const showDeleteConfirm = ({
@@ -44,6 +45,7 @@ const showDeleteConfirm = ({
       }
       form.append("action", "delete");
       api(form);
+      if (true) { message.success("Deleted successfully") };
       if (setOpen) setOpen(true);
     },
     onCancel() {
@@ -59,6 +61,7 @@ interface DeleteModalProps {
   data: { id: string | number; role?: string };
   api: (form: FormData) => void;
   deleteLoading: boolean;
+  deleteSuccess?: boolean;
 }
 
 const DeleteModal = ({
@@ -67,6 +70,7 @@ const DeleteModal = ({
   data,
   api,
   deleteLoading,
+  deleteSuccess
 }: DeleteModalProps) => {
   const [open, setOpen] = useState(false);
 
@@ -82,6 +86,7 @@ const DeleteModal = ({
           setOpen,
           api,
           deleteLoading,
+          deleteSuccess
         });
       }}
       size={20}

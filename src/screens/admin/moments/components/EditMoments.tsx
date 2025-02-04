@@ -24,9 +24,12 @@ const EditMoments: React.FC<EditMomentsProps> = ({
 
   useEffect(() => {
     if (isSuccess) {
-      if (data) {
+      if (data && data.status === "success") {
         message.success(data.message);
         navigate("/moments");
+      }
+      else {
+        message.error(data?.message);
       }
     }
   }, [isSuccess]);

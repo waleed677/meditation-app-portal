@@ -15,6 +15,7 @@ const Index = () => {
   const { data, isLoading } = useGetVisualPracticeQuery({});
   const [addVisualPractice, { isLoading: deleteLoading }] =
     useAddVisualPracticeMutation();
+
   const [showEditModal, setShowEditModal] = useState({
     open: false,
     data: null,
@@ -38,6 +39,11 @@ const Index = () => {
       title: "Title",
       render: (record: { title: string }) => checkRowData(record.title),
       key: "title",
+    },
+    {
+      title: "Duration",
+      render: (record: { duration: string }) => checkRowData(record.duration),
+      key: "duration",
     },
     {
       title: "Video",

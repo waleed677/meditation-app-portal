@@ -67,7 +67,8 @@ const UpdateProfile: React.FC<EditProfileProps> = ({
       loading={isLoading}
     >
       <TextInput name="username" label="Full Name" required={true} />
-      <TextInput name="email" label="Email" required={true} />
+
+      <TextInput name="email" label="Email" required={true} readOnly={true} />
       <Form.Item
         name="description"
         label="Description"
@@ -93,6 +94,7 @@ const UpdateProfile: React.FC<EditProfileProps> = ({
             accept="image/*"
             beforeUpload={() => false}
             maxCount={1}
+            multiple={false}
           >
             <div className="border-2 border-dashed h-[60px] w-[200px] rounded-lg border-primary-500 flex items-center justify-center cursor-pointer">
               <p className="text-primary-500 font-medium text-xs">

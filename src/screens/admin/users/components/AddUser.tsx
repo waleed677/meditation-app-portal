@@ -17,16 +17,17 @@ const AddUser: React.FC<AddUserProps> = ({ setShowAddModal, showAddModal }) => {
     useAddUsersMutation();
   useEffect(() => {
     if (isSuccess) {
-      if (data) {
+      if (data && data.status === "success") {
         message.success(data.message);
         navigate("/user");
       }
+      else { message.error(data?.message); }
     }
   }, [isSuccess]);
 
   useEffect(() => {
     if (isError) {
-      message.error(data?.error || "Something went wrong");
+      message.error(data?.message || "Something went wrong");
     }
   }, [isError, data]);
 

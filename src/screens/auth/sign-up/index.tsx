@@ -23,7 +23,7 @@ const Index = () => {
         message.success(data.message);
         navigate("/");
       } else {
-        message.error("Token not found in response");
+        message.error(data.msg);
       }
     }
   }, [isSuccess]);
