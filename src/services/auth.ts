@@ -3,9 +3,8 @@ export const authApi = createApi({
   reducerPath: "authApi",
 
   baseQuery: fetchBaseQuery({
-    baseUrl: "/auth",
+    baseUrl: "https://mintcream-cod-221842.hostingersite.com/api",
     mode: "cors",
-    credentials: "include",
     prepareHeaders: (headers) => {
       headers.set("Content-Type", "application/json");
       return headers;
@@ -14,11 +13,13 @@ export const authApi = createApi({
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (body) => ({
-        url: `login`,
+        url: `admin_auth.php?action=login`,
         method: "POST",
         mode: "cors",
         body,
         headers: {
+          "Access-Control-Allow-Origin":
+            "https://mintcream-cod-221842.hostingersite.com",
           // "Access-Control-Allow-Credentials": "false",
           "Content-Type": "application/json", // example for a different content type
         },
@@ -26,7 +27,7 @@ export const authApi = createApi({
     }),
     signup: builder.mutation({
       query: (body) => ({
-        url: `admin_auth.php?action=register`,
+        url: `admin_auth.php`,
         method: "POST",
         body,
         headers: {
