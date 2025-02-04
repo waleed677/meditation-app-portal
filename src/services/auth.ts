@@ -3,7 +3,7 @@ export const authApi = createApi({
   reducerPath: "authApi",
 
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://meditation.baramdatsol.com",
+    baseUrl: "/api",
     mode: "cors",
     prepareHeaders: (headers) => {
       headers.set("Content-Type", "application/json");

@@ -15,7 +15,7 @@ interface UserData {
 }
 
 const Index = () => {
-  const userInfo = localStorage.getItem("userInfo");
+  const userInfo = localStorage?.getItem("userInfo");
   const [userData, setUserData] = useState<UserData | null>(null); // Define state type
   const [showEditModal, setShowEditModal] = useState<{
     open: boolean;
@@ -26,7 +26,7 @@ const Index = () => {
   });
 
   useEffect(() => {
-    const userData = userInfo ? JSON.parse(userInfo) : null;
+    const userData = userInfo ? JSON?.parse(userInfo) : null;
     if (userData) {
       setUserData(userData);
     }
@@ -68,7 +68,7 @@ const Index = () => {
               <h3 className="text-lg font-semibold text-center mb-[-2px]">
                 {userData?.username
                   ? userData.username.charAt(0).toUpperCase() +
-                    userData.username.slice(1)
+                  userData.username.slice(1)
                   : ""}
               </h3>
               <p className="text-xs text-center">{userData?.email}</p>
