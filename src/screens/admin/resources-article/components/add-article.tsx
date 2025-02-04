@@ -84,7 +84,12 @@ const AddArticle = () => {
       <Form className="mt-5" layout="vertical" onFinish={onFinish}>
         <TextInput name="title" label="Name" placeholder="Enter your name" />
 
-        <Form.Item name="resource_id" label="Resources">
+        <Form.Item name="resource_id" label="Resources" rules={[
+          {
+            required: true,
+            message: "Resource is Required.",
+          },
+        ]}>
           <Select
             onChange={handleChange}
             value={resourceId}

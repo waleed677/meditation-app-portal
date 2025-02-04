@@ -97,9 +97,14 @@ const EditArticle = () => {
         onFinish={onFinish}
       >
         <TextInput name="title" label="Name" placeholder="Enter your name" />
-        <Form.Item name="resource_id" label="Resources">
+        <Form.Item name="resource_id" label="Resources" rules={[
+          {
+            required: true,
+            message: "Resource is Required.",
+          },
+        ]}>
           <Select
-            style={{ width: 120 }}
+            // style={{ width: 120 }}
             onChange={handleChange}
             value={resourceId}
           >
@@ -142,7 +147,7 @@ const EditArticle = () => {
 
           rules={[
             {
-              required: !showEditModal.image_url ? true : false,
+              required: !showEditModal.image_url ? true : true,
               message: "Please upload a image.",
             },
           ]}
