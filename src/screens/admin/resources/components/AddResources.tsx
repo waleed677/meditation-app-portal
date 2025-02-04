@@ -20,19 +20,21 @@ const AddResources: React.FC<AddResourcesProps> = ({
 
   useEffect(() => {
     if (isSuccess) {
-      if (data) {
+      if (data && data.status === "success") {
         message.success(data.message);
         navigate("/resources");
+      } else {
+        message.error(data?.message);
       }
     }
   }, [isSuccess]);
 
   useEffect(() => {
     if (isError) {
-      message.error("Something went wrong");
+      message.error(data?.message || "Something went wrong");
     }
   }, [isError]);
-  
+
   return (
     <AddModal
       title="Add Resources"

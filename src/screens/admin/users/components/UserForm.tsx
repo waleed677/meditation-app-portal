@@ -22,7 +22,8 @@ const UserForm = ({ type }: { type?: string }) => {
       )}
       <Form.Item label="Status" name="status" rules={[{ required: true }]}>
         <Select
-          defaultValue="Active"
+          // defaultValue="Active"
+          placeholder="Select Status"
           onChange={handleChange}
           options={[
             { value: "active", label: "Active" },
@@ -32,7 +33,8 @@ const UserForm = ({ type }: { type?: string }) => {
       </Form.Item>
       <Form.Item label="Role" name="role" rules={[{ required: true }]}>
         <Select
-          defaultValue="Admin"
+          // defaultValue="admin"
+          placeholder="Select Role"
           onChange={handleChange}
           options={[
             { value: "admin", label: "Admin" },

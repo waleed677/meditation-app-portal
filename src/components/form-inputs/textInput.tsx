@@ -5,11 +5,13 @@ const TextInput = ({
   name,
   label,
   required = true,
+  readOnly = false,
 }: {
   placeholder?: string;
   name?: string;
   label?: string;
   required?: boolean;
+  readOnly?: boolean;
 }) => {
   return (
     <Form.Item
@@ -18,7 +20,7 @@ const TextInput = ({
       rules={[{ required: required, message: "Field is required!" }]}
       className="mb-3"
     >
-      <Input placeholder={placeholder} />
+      <Input placeholder={placeholder} disabled={readOnly} />
     </Form.Item>
   );
 };

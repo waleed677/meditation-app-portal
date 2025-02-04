@@ -42,8 +42,13 @@ const VideoForm: React.FC<VideoFormProps> = ({
   return (
     <>
       <TextInput name="title" label="Title" placeholder="Enter your title" />
-      <Form.Item name="practices_id" label="Practices">
-        <Select onChange={handleChange} value={practicesId}>
+      <TextInput
+        name="duration"
+        label="Duration"
+        placeholder="Enter duration"
+      />
+      <Form.Item name="practices_id" label="Practices" rules={[{ required: true }]}>
+        <Select onChange={handleChange} value={practicesId} placeholder="Select a practice">
           {practices.map((resource: { id: number; name: string }) => (
             <Select.Option key={resource.id} value={resource.id}>
               {resource.name}
@@ -69,6 +74,8 @@ const VideoForm: React.FC<VideoFormProps> = ({
             listType="picture"
             accept="video/*"
             beforeUpload={() => false}
+            maxCount={1}
+            multiple={false}
           >
             <div className="border-2 border-dashed h-[60px] w-[200px] rounded-lg border-primary-500 flex items-center justify-center cursor-pointer">
               <p className="text-primary-500 font-medium text-xs">

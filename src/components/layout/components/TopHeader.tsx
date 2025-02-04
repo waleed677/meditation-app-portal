@@ -17,7 +17,7 @@ const TopHeader: React.FC<TopHeaderProps> = ({ setCollapsed, collapsed }) => {
   const navigate = useNavigate();
   const userInfo = localStorage.getItem("userInfo");
   const userData = userInfo ? JSON.parse(userInfo) : { username: "Guest" };
-//again
+  //again
   return (
     <Header className="h-12 px-4 flex items-center justify-between">
       {collapsed ? (
@@ -48,7 +48,7 @@ const TopHeader: React.FC<TopHeaderProps> = ({ setCollapsed, collapsed }) => {
           /> */}
           <Avatar
             className="border border-zinc-300"
-            src={joinFileLink(userData?.logo)}
+            src={joinFileLink(userData?.profile_logo)}
             alt=""
             size={34}
           />
@@ -56,7 +56,7 @@ const TopHeader: React.FC<TopHeaderProps> = ({ setCollapsed, collapsed }) => {
             {" "}
             {userData.username
               ? userData.username.charAt(0).toUpperCase() +
-                userData.username.slice(1)
+              userData.username.slice(1)
               : ""}
           </p>
         </div>

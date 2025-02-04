@@ -12,7 +12,7 @@ const EditArticle = () => {
   const location = useLocation();
   const [resourceId, setResourceId] = useState<string | null>(null); // State to store selected resource_id
   const { data: getResourcesData } = useGetResourcesQuery({});
-  const [addResourcesArticles, { isSuccess, isError, data }] =
+  const [addResourcesArticles, { isLoading, isSuccess, isError, data }] =
     useAddResourcesArticlesMutation();
   const [showEditModal, setShowEditModal] = useState(location?.state);
   const navigate = useNavigate();
@@ -54,9 +54,11 @@ const EditArticle = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      if (data) {
+      if (data && data.status === "success") {
         message.success(data.message);
         navigate("/resources-articles");
+      } else {
+        message.error(data?.message);
       }
     }
   }, [isSuccess]);
@@ -137,6 +139,7 @@ const EditArticle = () => {
           label="Upload Thumbnail"
           valuePropName="fileList"
           getValueFromEvent={(e) => e.fileList}
+
           rules={[
             {
               required: !showEditModal.image_url ? true : false,
@@ -149,6 +152,8 @@ const EditArticle = () => {
               listType="picture"
               accept="image/*"
               beforeUpload={() => false}
+              multiple={false}
+              maxCount={1}
             >
               <div className="border-2 border-dashed h-[60px] w-[200px] rounded-lg border-primary-500 flex items-center justify-center cursor-pointer">
                 <p className="text-primary-500 font-medium text-xs">
@@ -224,7 +229,7 @@ const EditArticle = () => {
 
         <div className="flex items-center gap-3 justify-end">
           <Button onClick={() => navigate(-1)}>Cancel</Button>
-          <Button htmlType="submit" type="primary">
+          <Button loading={isLoading} disabled={isLoading} htmlType="submit" type="primary">
             Update
           </Button>
         </div>

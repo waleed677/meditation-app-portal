@@ -26,10 +26,10 @@ const Index = () => {
           message.success(data.message);
           navigate("/");
         } else {
-          message.error("Token not found in response");
+          message.error(data.error);
         }
       } else {
-        message.error("Something went wrong!");
+        message.error(data.error);
       }
     }
   }, [isSuccess]);

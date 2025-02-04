@@ -11,7 +11,7 @@ interface UserData {
   username: string;
   email: string;
   description: string;
-  logo?: string; // Optional, since the logo can be null or undefined
+  profile_logo?: string; // Optional, since the logo can be null or undefined
 }
 
 const Index = () => {
@@ -49,7 +49,7 @@ const Index = () => {
                     username: userData?.username,
                     email: userData?.email,
                     description: userData?.description,
-                    logo: userData?.logo,
+                    logo: userData?.profile_logo,
                   },
                 })
               }
@@ -60,7 +60,7 @@ const Index = () => {
           <div className="flex items-center flex-col gap-3">
             <Avatar
               className="border border-zinc-300"
-              src={joinFileLink(userData?.logo)}
+              src={joinFileLink(userData?.profile_logo)}
               alt=""
               size={70}
             />

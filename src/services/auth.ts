@@ -27,7 +27,7 @@ export const authApi = createApi({
     }),
     signup: builder.mutation({
       query: (body) => ({
-        url: `admin_auth.php`,
+        url: `admin_auth.php?action=register`,
         method: "POST",
         body,
         headers: {

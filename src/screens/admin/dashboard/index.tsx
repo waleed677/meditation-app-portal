@@ -20,7 +20,7 @@ const Index = () => {
   const { data: getTotalAudioCount } = useGetAudioPracticeQuery({});
 
   const { data: getTotalUserData, isLoading } = useGetVisualPracticeQuery({});
-  
+
 
   const [showVideoPlayer, setShowVideoPlayerData] = useState<{
     open: boolean;
@@ -39,6 +39,11 @@ const Index = () => {
       title: "Title",
       render: (record: { title: string }) => checkRowData(record.title),
       key: "title",
+    },
+    {
+      title: "Duration",
+      render: (record: { duration: string }) => checkRowData(record.duration),
+      key: "duration",
     },
     {
       title: "Video",
