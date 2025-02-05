@@ -81,14 +81,6 @@ const Index = () => {
           >
             Login
           </Button>
-          <div
-            className="flex justify-center text-black cursor-pointer mt-2"
-            onClick={() => {
-              navigate("/sign-up");
-            }}
-          >
-            Are you a new user? Sign up
-          </div>
         </Form>
       </div>
     </AuthLayout>
