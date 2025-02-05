@@ -1,8 +1,13 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+
 export const usersApi = createApi({
   reducerPath: "usersApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://mintcream-cod-221842.hostingersite.com/api",
+    baseUrl: "/api",
+    prepareHeaders: (headers) => {
+      headers.set("Content-Type", "application/json");
+      return headers;
+    },
   }),
   tagTypes: ['Users'],
   endpoints: (builder) => ({
@@ -22,5 +27,4 @@ export const usersApi = createApi({
   }),
 });
 
-export const { useGetUsersQuery, useAddUsersMutation } =
-  usersApi;
+export const { useGetUsersQuery, useAddUsersMutation } = usersApi;
