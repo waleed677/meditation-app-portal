@@ -1,10 +1,14 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+const baseUrl = import.meta.env.PROD
+  ? 'https://mintcream-cod-221842.hostingersite.com/api'
+  : '/api'
+
 export const authApi = createApi({
   reducerPath: "authApi",
 
   baseQuery: fetchBaseQuery({
-    baseUrl: "/api",
+    baseUrl,
     prepareHeaders: (headers) => {
       headers.set("Content-Type", "application/json");
       return headers;
