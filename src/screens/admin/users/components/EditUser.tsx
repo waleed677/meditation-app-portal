@@ -22,14 +22,16 @@ const EditUser: React.FC<EditUserProps> = ({
   showEditModal,
 }) => {
   const navigate = useNavigate();
-  const [addUsers, { isLoading, isSuccess, isError, data }] = useAddUsersMutation();
+  const [addUsers, { isLoading, isSuccess, isError, data }] =
+    useAddUsersMutation();
   useEffect(() => {
     if (isSuccess) {
       if (data && data.status === "success") {
         message.success(data.message);
         navigate("/user");
+      } else {
+        message.error(data?.message);
       }
-      else { message.error(data?.message); }
     }
   }, [isSuccess]);
 
@@ -47,6 +49,7 @@ const EditUser: React.FC<EditUserProps> = ({
       title="Edit User"
       setEditModal={setShowEditModal}
       editModal={showEditModal}
+      typeFormData="withoutFiles"
     >
       <UserForm type="edit" />
     </EditModal>

@@ -45,7 +45,7 @@ const MomentsForm: React.FC<MomentFormProps> = ({
         getValueFromEvent={(e) => e.fileList}
         rules={[
           {
-            required: showEditModal?.data?.image_url ? true : true,
+            required: !showEditModal?.data?.image_url,
             message: "Please upload a image.",
           },
         ]}

@@ -97,12 +97,21 @@ const EditArticle = () => {
         onFinish={onFinish}
       >
         <TextInput name="title" label="Name" placeholder="Enter your name" />
-        <Form.Item name="resource_id" label="Resources" rules={[
-          {
-            required: true,
-            message: "Resource is Required.",
-          },
-        ]}>
+        <TextInput
+          name="duration"
+          label="Duration"
+          placeholder="Enter Duration"
+        />
+        <Form.Item
+          name="resource_id"
+          label="Resources"
+          rules={[
+            {
+              required: true,
+              message: "Resource is Required.",
+            },
+          ]}
+        >
           <Select
             // style={{ width: 120 }}
             onChange={handleChange}
@@ -144,10 +153,9 @@ const EditArticle = () => {
           label="Upload Thumbnail"
           valuePropName="fileList"
           getValueFromEvent={(e) => e.fileList}
-
           rules={[
             {
-              required: !showEditModal.image_url ? true : true,
+              required: !showEditModal.image_url,
               message: "Please upload a image.",
             },
           ]}
@@ -234,7 +242,12 @@ const EditArticle = () => {
 
         <div className="flex items-center gap-3 justify-end">
           <Button onClick={() => navigate(-1)}>Cancel</Button>
-          <Button loading={isLoading} disabled={isLoading} htmlType="submit" type="primary">
+          <Button
+            loading={isLoading}
+            disabled={isLoading}
+            htmlType="submit"
+            type="primary"
+          >
             Update
           </Button>
         </div>

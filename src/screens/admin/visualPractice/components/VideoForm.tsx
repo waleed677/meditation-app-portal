@@ -72,7 +72,7 @@ const VideoForm: React.FC<VideoFormProps> = ({
         getValueFromEvent={(e) => e.fileList}
         rules={[
           {
-            required: true,
+            required: !showEditModal?.data?.file_url ? true : false,
             message: "Please upload a video.",
           },
         ]}

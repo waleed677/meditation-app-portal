@@ -20,8 +20,9 @@ const AddUser: React.FC<AddUserProps> = ({ setShowAddModal, showAddModal }) => {
       if (data && data.status === "success") {
         message.success(data.message);
         navigate("/user");
+      } else {
+        message.error(data?.message);
       }
-      else { message.error(data?.message); }
     }
   }, [isSuccess]);
 
@@ -38,6 +39,7 @@ const AddUser: React.FC<AddUserProps> = ({ setShowAddModal, showAddModal }) => {
       title="Add User"
       setOpen={setShowAddModal}
       open={showAddModal}
+      typeFormData="withoutFiles"
     >
       <UserForm />
     </AddModal>

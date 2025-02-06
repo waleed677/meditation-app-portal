@@ -17,6 +17,7 @@ interface EditModalProps {
   postData: (data: FormData) => any;
   setEditModal: React.Dispatch<React.SetStateAction<EditModalState>>;
   customValues?: Record<string, any>;
+  typeFormData?: "withFiles" | "withoutFiles";
 }
 
 const EditModal: React.FC<EditModalProps> = ({
@@ -27,11 +28,17 @@ const EditModal: React.FC<EditModalProps> = ({
   customValues = {},
   loading,
   postData,
+  typeFormData = "withFiles",
 }) => {
   const [form] = useForm();
 
   const onFinish = async (values: any) => {
     const data = { ...customValues, ...values };
+    if (typeFormData === "withoutFiles") {
+      await postData(data).unwrap();
+      setEditModal({ open: false, data: null });
+      return;
+    }
     const form = new FormData();
     Object.keys(data).forEach((key) => {
       const value = data[key];

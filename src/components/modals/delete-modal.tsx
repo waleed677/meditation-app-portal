@@ -15,6 +15,7 @@ interface DeleteConfirmProps {
   api: (form: FormData) => void; // Function type for api
   deleteLoading?: boolean;
   deleteSuccess?: boolean;
+  typeFormData?: "withFiles" | "withoutFiles";
 }
 
 const showDeleteConfirm = ({
@@ -25,6 +26,7 @@ const showDeleteConfirm = ({
   setOpen,
   api,
   deleteLoading,
+  typeFormData,
 }: DeleteConfirmProps) => {
   confirm({
     open,
@@ -36,6 +38,11 @@ const showDeleteConfirm = ({
     cancelText: "Cancel",
     okButtonProps: { loading: deleteLoading },
     onOk() {
+      if (typeFormData === "withoutFiles") {
+        //@ts-ignore
+        api(data);
+        return;
+      }
       const form = new FormData();
       if (data?.id) {
         form.append("id", String(data.id)); // Ensuring `id` is a string
@@ -45,7 +52,9 @@ const showDeleteConfirm = ({
       }
       form.append("action", "delete");
       api(form);
-      if (true) { message.success("Deleted successfully") };
+      if (true) {
+        message.success("Deleted successfully");
+      }
       if (setOpen) setOpen(true);
     },
     onCancel() {
@@ -62,6 +71,7 @@ interface DeleteModalProps {
   api: (form: FormData) => void;
   deleteLoading: boolean;
   deleteSuccess?: boolean;
+  typeFormData?: "withFiles" | "withoutFiles";
 }
 
 const DeleteModal = ({
@@ -70,7 +80,8 @@ const DeleteModal = ({
   data,
   api,
   deleteLoading,
-  deleteSuccess
+  deleteSuccess,
+  typeFormData = "withFiles",
 }: DeleteModalProps) => {
   const [open, setOpen] = useState(false);
 
@@ -86,7 +97,8 @@ const DeleteModal = ({
           setOpen,
           api,
           deleteLoading,
-          deleteSuccess
+          deleteSuccess,
+          typeFormData,
         });
       }}
       size={20}

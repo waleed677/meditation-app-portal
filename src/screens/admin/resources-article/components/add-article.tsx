@@ -83,17 +83,23 @@ const AddArticle = () => {
       <Typography type="title3">Add Article</Typography>
       <Form className="mt-5" layout="vertical" onFinish={onFinish}>
         <TextInput name="title" label="Name" placeholder="Enter your name" />
+        <TextInput
+          name="duration"
+          label="Duration"
+          placeholder="Enter Duration"
+        />
 
-        <Form.Item name="resource_id" label="Resources" rules={[
-          {
-            required: true,
-            message: "Resource is Required.",
-          },
-        ]}>
-          <Select
-            onChange={handleChange}
-            value={resourceId}
-          >
+        <Form.Item
+          name="resource_id"
+          label="Resources"
+          rules={[
+            {
+              required: true,
+              message: "Resource is Required.",
+            },
+          ]}
+        >
+          <Select onChange={handleChange} value={resourceId}>
             {resources.map((resource: { id: number; name: string }) => (
               <Select.Option key={resource.id} value={resource.id}>
                 {resource.name}
@@ -156,7 +162,12 @@ const AddArticle = () => {
 
         <div className="flex items-center gap-3 justify-end">
           <Button onClick={() => navigate(-1)}>Cancel</Button>
-          <Button loading={isLoading} disabled={isLoading} htmlType="submit" type="primary">
+          <Button
+            loading={isLoading}
+            disabled={isLoading}
+            htmlType="submit"
+            type="primary"
+          >
             Save
           </Button>
         </div>
