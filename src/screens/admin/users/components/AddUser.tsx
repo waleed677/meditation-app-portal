@@ -39,7 +39,6 @@ const AddUser: React.FC<AddUserProps> = ({ setShowAddModal, showAddModal }) => {
       title="Add User"
       setOpen={setShowAddModal}
       open={showAddModal}
-      typeFormData="withoutFiles"
     >
       <UserForm />
     </AddModal>

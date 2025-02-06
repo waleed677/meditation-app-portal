@@ -1,10 +1,7 @@
 import { Form, Input, message } from "antd";
 import EditModal from "../../../../components/modals/edit-modal";
 import TextInput from "../../../../components/form-inputs/textInput";
-import {
-  useAddSettingsMutation,
-  useAddUsersMutation,
-} from "../../../../services/users";
+import { useAddSettingsMutation } from "../../../../services/users";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 

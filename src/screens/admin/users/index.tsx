@@ -66,7 +66,6 @@ const Index = () => {
               deleteLoading={deleteLoading}
               deleteSuccess={deleteSuccess}
               title="Are you sure you want to delete this user?"
-              typeFormData="withoutFiles"
             />
           )}
         </div>

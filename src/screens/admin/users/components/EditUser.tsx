@@ -49,7 +49,6 @@ const EditUser: React.FC<EditUserProps> = ({
       title="Edit User"
       setEditModal={setShowEditModal}
       editModal={showEditModal}
-      typeFormData="withoutFiles"
     >
       <UserForm type="edit" />
     </EditModal>
