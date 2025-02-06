@@ -10,6 +10,7 @@ interface AddModalProps {
   loading: boolean;
   postData: (data: FormData) => any;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  typeFormData?: "withFiles" | "withoutFiles";
 }
 
 const AddModal: React.FC<AddModalProps> = ({
@@ -19,10 +20,16 @@ const AddModal: React.FC<AddModalProps> = ({
   title,
   loading,
   postData,
+  typeFormData = "withFiles",
 }) => {
   const [form] = useForm();
 
   const onFinish = async (values: any) => {
+    if (typeFormData === "withoutFiles") {
+      await postData(values).unwrap();
+      setOpen(false);
+      return;
+    }
     const form = new FormData();
     Object.keys(values).forEach((key) => {
       const value = values[key];

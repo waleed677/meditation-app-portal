@@ -42,7 +42,7 @@ const AudioForm: React.FC<AudioFormProps> = ({
         getValueFromEvent={(e) => e.fileList}
         rules={[
           {
-            required: showEditModal?.data?.file_url ? true : true,
+            required: !showEditModal?.data?.file_url,
             message: "Please upload a audio.",
           },
         ]}
@@ -110,7 +110,7 @@ const AudioForm: React.FC<AudioFormProps> = ({
         getValueFromEvent={(e) => e.fileList}
         rules={[
           {
-            required: true,
+            required: !showEditModal?.data?.thumbnail_url,
             message: "Please upload a Thumbnail.",
           },
         ]}
