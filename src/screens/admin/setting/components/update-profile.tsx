@@ -69,11 +69,15 @@ const UpdateProfile: React.FC<EditProfileProps> = ({
       <TextInput name="username" label="Full Name" required={true} />
 
       <TextInput name="email" label="Email" required={true} readOnly={true} />
+      <TextInput name="authorName" label="Author Name" required={true} />
       <Form.Item
-        name="description"
-        label="Description"
+        name="aboutAuthor"
+        label="About Author"
         rules={[{ required: true }]}
       >
+        <Input.TextArea />
+      </Form.Item>
+      <Form.Item name="aboutApp" label="About App" rules={[{ required: true }]}>
         <Input.TextArea />
       </Form.Item>
       <Form.Item

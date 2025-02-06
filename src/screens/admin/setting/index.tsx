@@ -10,7 +10,9 @@ interface UserData {
   id: string;
   username: string;
   email: string;
-  description: string;
+  aboutApp: string;
+  authorName: string;
+  aboutAuthor: string;
   profile_logo?: string; // Optional, since the logo can be null or undefined
 }
 
@@ -48,7 +50,9 @@ const Index = () => {
                     id: userData?.id,
                     username: userData?.username,
                     email: userData?.email,
-                    description: userData?.description,
+                    aboutApp: userData?.aboutApp,
+                    authorName: userData?.authorName,
+                    aboutAuthor: userData?.aboutAuthor,
                     logo: userData?.profile_logo,
                   },
                 })
@@ -68,15 +72,38 @@ const Index = () => {
               <h3 className="text-lg font-semibold text-center mb-[-2px]">
                 {userData?.username
                   ? userData.username.charAt(0).toUpperCase() +
-                  userData.username.slice(1)
+                    userData.username.slice(1)
                   : ""}
               </h3>
               <p className="text-xs text-center">{userData?.email}</p>
             </div>
           </div>
+
           <div className="mt-4">
-            <h2 className="font-semibold">Description</h2>
-            <p className="text-xs px-2">{userData?.description}</p>
+            <h2 className="font-semibold">Author Name</h2>
+            <p className="text-xs px-2">{userData?.authorName}</p>
+          </div>
+          <div className="mt-2">
+            <h2 className="font-semibold">AboutApp</h2>
+            <p className="text-xs px-2">
+              {
+                //@ts-ignore
+                userData?.aboutApp?.length > 100
+                  ? userData?.aboutApp?.slice(0, 100)
+                  : userData?.aboutApp
+              }
+            </p>
+          </div>
+          <div className="mt-2">
+            <h2 className="font-semibold">About Author</h2>
+            <p className="text-xs px-2">
+              {
+                //@ts-ignore
+                userData?.aboutAuthor?.length > 100
+                  ? userData?.aboutAuthor?.slice(0, 100)
+                  : userData?.aboutAuthor
+              }
+            </p>
           </div>
         </div>
       </Col>
