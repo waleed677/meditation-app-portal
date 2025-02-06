@@ -20,7 +20,7 @@ const Index = () => {
       if (data && data.token) {
         localStorage.setItem("authToken", data.token);
         localStorage.setItem("userInfo", JSON.stringify(data.user));
-        message.success(data.message);
+        message.success(data.msg);
         navigate("/");
       } else {
         message.error(data.msg);

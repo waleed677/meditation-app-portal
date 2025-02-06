@@ -26,10 +26,10 @@ const Index = () => {
           message.success(data.message);
           navigate("/");
         } else {
-          message.error(data.error);
+          message.error(data.msg);
         }
       } else {
-        message.error(data.error);
+        message.error(data.msg);
       }
     }
   }, [isSuccess]);
