@@ -4,24 +4,42 @@ import Typography from "../../../components/Typography/typography";
 import { useEffect, useState } from "react";
 import UpdateProfile from "./components/update-profile";
 import { joinFileLink } from "../../../utils/commonFun";
+import UpdateAppInfo from "./components/update-app-info";
+import { useGetSettingsQuery } from "../../../services/users";
 
 // Define the type of userData to be consistent with the structure.
 interface UserData {
   id: string;
   username: string;
   email: string;
-  aboutApp: string;
-  authorName: string;
-  aboutAuthor: string;
+  description: string;
   profile_logo?: string; // Optional, since the logo can be null or undefined
+}
+
+interface SettingDataProps {
+  author_name?: string;
+  about_author?: string;
+  about_app?: string;
 }
 
 const Index = () => {
   const userInfo = localStorage?.getItem("userInfo");
   const [userData, setUserData] = useState<UserData | null>(null); // Define state type
+  const { data } = useGetSettingsQuery({});
+  const [SettingData, setSettingData] = useState<SettingDataProps | null>(
+    data?.settings ? data?.settings : null
+  ); // Define state type
+
   const [showEditModal, setShowEditModal] = useState<{
     open: boolean;
     data: UserData | {};
+  }>({
+    open: false,
+    data: {},
+  });
+  const [showAppEditModal, setShowAppEditModal] = useState<{
+    open: boolean;
+    data: SettingDataProps | {};
   }>({
     open: false,
     data: {},
@@ -34,8 +52,13 @@ const Index = () => {
     }
   }, [userInfo]);
 
+  useEffect(() => {
+    if (data?.settings) {
+      setSettingData(data?.settings);
+    }
+  }, [data?.settings]);
   return (
-    <Row>
+    <Row gutter={10}>
       <Col xl={10} lg={12} md={12} sm={12} xs={24}>
         <Typography className="mb-4" type="title3">
           Setting
@@ -50,9 +73,7 @@ const Index = () => {
                     id: userData?.id,
                     username: userData?.username,
                     email: userData?.email,
-                    aboutApp: userData?.aboutApp,
-                    authorName: userData?.authorName,
-                    aboutAuthor: userData?.aboutAuthor,
+                    description: userData?.description,
                     logo: userData?.profile_logo,
                   },
                 })
@@ -80,30 +101,44 @@ const Index = () => {
           </div>
 
           <div className="mt-4">
-            <h2 className="font-semibold">Author Name</h2>
-            <p className="text-xs px-2">{userData?.authorName}</p>
+            <h2 className="font-semibold">Description</h2>
+            <p className="text-xs px-2">{userData?.description}</p>
           </div>
-          <div className="mt-2">
-            <h2 className="font-semibold">AboutApp</h2>
-            <p className="text-xs px-2">
-              {
-                //@ts-ignore
-                userData?.aboutApp?.length > 100
-                  ? userData?.aboutApp?.slice(0, 100)
-                  : userData?.aboutApp
+        </div>
+      </Col>
+      <Col xl={10} lg={12} md={12} sm={12} xs={24}>
+        <Typography className="mb-4" type="title3">
+          App Setting
+        </Typography>
+        <div className="w-full drop-shadow-lg rounded-lg bg-white p-5 border border-gray-200">
+          <div className="flex justify-end">
+            <FaEdit
+              onClick={() =>
+                setShowAppEditModal({
+                  open: true,
+                  data: {
+                    author_name: SettingData?.author_name,
+                    about_author: SettingData?.about_author,
+                    about_app: SettingData?.about_app,
+                  },
+                })
               }
-            </p>
+              className="cursor-pointer"
+              size={20}
+            />
+          </div>
+
+          <div className="mt-4">
+            <h2 className="font-semibold">Author Name</h2>
+            <p className="text-xs px-2">{SettingData?.author_name}</p>
           </div>
           <div className="mt-2">
             <h2 className="font-semibold">About Author</h2>
-            <p className="text-xs px-2">
-              {
-                //@ts-ignore
-                userData?.aboutAuthor?.length > 100
-                  ? userData?.aboutAuthor?.slice(0, 100)
-                  : userData?.aboutAuthor
-              }
-            </p>
+            <p className="text-xs px-2">{SettingData?.about_author}</p>
+          </div>
+          <div className="mt-2">
+            <h2 className="font-semibold">About App</h2>
+            <p className="text-xs px-2">{SettingData?.about_app}</p>
           </div>
         </div>
       </Col>
@@ -112,6 +147,12 @@ const Index = () => {
         setShowEditModal={setShowEditModal}
         showEditModal={showEditModal}
         setUserData={setUserData}
+      />
+      <UpdateAppInfo
+        setSettingData={setSettingData}
+        //@ts-ignore
+        setShowAppEditModal={setShowAppEditModal}
+        showAppEditModal={showAppEditModal}
       />
     </Row>
   );

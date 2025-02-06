@@ -71,7 +71,6 @@ interface DeleteModalProps {
   api: (form: FormData) => void;
   deleteLoading: boolean;
   deleteSuccess?: boolean;
-  typeFormData?: "withFiles" | "withoutFiles";
 }
 
 const DeleteModal = ({
@@ -81,7 +80,6 @@ const DeleteModal = ({
   api,
   deleteLoading,
   deleteSuccess,
-  typeFormData = "withFiles",
 }: DeleteModalProps) => {
   const [open, setOpen] = useState(false);
 
@@ -98,7 +96,6 @@ const DeleteModal = ({
           api,
           deleteLoading,
           deleteSuccess,
-          typeFormData,
         });
       }}
       size={20}

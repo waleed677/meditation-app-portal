@@ -17,7 +17,6 @@ interface EditModalProps {
   postData: (data: FormData) => any;
   setEditModal: React.Dispatch<React.SetStateAction<EditModalState>>;
   customValues?: Record<string, any>;
-  typeFormData?: "withFiles" | "withoutFiles";
 }
 
 const EditModal: React.FC<EditModalProps> = ({
@@ -28,30 +27,43 @@ const EditModal: React.FC<EditModalProps> = ({
   customValues = {},
   loading,
   postData,
-  typeFormData = "withFiles",
 }) => {
   const [form] = useForm();
 
   const onFinish = async (values: any) => {
     const data = { ...customValues, ...values };
-    if (typeFormData === "withoutFiles") {
-      await postData(data).unwrap();
-      setEditModal({ open: false, data: null });
-      return;
-    }
-    const form = new FormData();
+
+    // Create FormData instance
+    const formAppend = new FormData();
+
+    // Loop through each field in data and append to FormData
     Object.keys(data).forEach((key) => {
       const value = data[key];
+
+      // If value is an array (for file inputs), process each file
       if (Array.isArray(value)) {
         value.forEach((item) => {
-          form.append(key, item.originFileObj || item);
+          // Ensure the item is a file (for cases where it's a file object from a component)
+          if (item.originFileObj) {
+            formAppend.append(key, item.originFileObj);
+          } else {
+            // Handle other possible values, if needed
+            formAppend.append(key, item);
+          }
         });
       } else {
-        form.append(key, value);
+        // Append other form values normally (non-file values)
+        formAppend.append(key, value);
       }
     });
-    await postData(form).unwrap();
-    setEditModal({ open: false, data: null });
+
+    // Send the form data to the server
+    try {
+      await postData(formAppend).unwrap(); // Make sure postData handles multipart/form-data
+      setEditModal({ open: false, data: null });
+    } catch (error) {
+      console.error("Error during form submission", error);
+    }
   };
 
   useEffect(() => {
