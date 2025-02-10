@@ -1,4 +1,4 @@
-import { Form, Select, Upload } from "antd";
+import { Form, Input, Select, Upload } from "antd";
 import TextInput from "../../../../components/form-inputs/textInput";
 import { DeleteOutlined } from "@ant-design/icons";
 import { useGetPracticesQuery } from "../../../../services/practices";
@@ -47,6 +47,13 @@ const VideoForm: React.FC<VideoFormProps> = ({
         label="Duration"
         placeholder="Enter duration"
       />
+      <Form.Item
+        name="description"
+        label="Description"
+        rules={[{ required: true }]}
+      >
+        <Input.TextArea placeholder="Enter Description" />
+      </Form.Item>
       <Form.Item
         name="practices_id"
         label="Practices"
@@ -140,7 +147,7 @@ const VideoForm: React.FC<VideoFormProps> = ({
         getValueFromEvent={(e) => e.fileList}
         rules={[
           {
-            required: true,
+            required: !showEditModal?.data?.thumbnail_url ? true : false,
             message: "Please upload a Thumbnail.",
           },
         ]}

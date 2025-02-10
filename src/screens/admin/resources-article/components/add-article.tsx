@@ -39,6 +39,7 @@ const AddArticle = () => {
     const form = new FormData();
     form.append("title", values.title);
     form.append("content", values.content);
+    form.append("duration", values.duration);
     form.append("resource_id", values?.resource_id); // Appending the resource_id from the Select component
     if (values.image_url && values.image_url.length > 0) {
       form.append("image", values.image_url[0].originFileObj);

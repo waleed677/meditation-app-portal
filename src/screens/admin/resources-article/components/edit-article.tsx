@@ -40,6 +40,7 @@ const EditArticle = () => {
     const form = new FormData();
     form.append("title", values.title);
     form.append("content", values.content);
+    form.append("duration", values.duration);
     form.append("id", location?.state.id);
     form.append("resource_id", values?.resource_id); // Appending the resource_id from the Select component
     form.append("action", "update");
