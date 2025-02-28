@@ -1,4 +1,4 @@
-import { Form, Upload } from "antd";
+import { Form, Input, Upload } from "antd";
 import TextInput from "../../../../components/form-inputs/textInput";
 import { DeleteOutlined } from "@ant-design/icons";
 interface AudioFormProps {
@@ -34,6 +34,13 @@ const AudioForm: React.FC<AudioFormProps> = ({
         label="Duration"
         placeholder="Enter duration"
       />
+      <Form.Item
+        name="description"
+        label="Description"
+        rules={[{ required: true }]}
+      >
+        <Input.TextArea placeholder="Enter Description" />
+      </Form.Item>
       <Form.Item
         className="mb-0"
         name="audio"
