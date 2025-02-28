@@ -53,7 +53,7 @@ const Index = () => {
           leftIcon={<GoogleIcon />}
           text="Sign in with Google"
         /> */}
-        <Form onFinish={onFinish} layout="vertical" className="sm:w-[300px]">
+        <Form onFinish={onFinish} layout="vertical" className="w-[300px]">
           <Form.Item name="email" label="Email" rules={[{ required: true }]}>
             <Input />
           </Form.Item>

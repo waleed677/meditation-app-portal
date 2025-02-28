@@ -25,9 +25,9 @@ const Index = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      if (data && data.status=="success") {
+      if (data && data.status == "success") {
         message.success(data.msg);
-        navigate("/reset-password",{ state: { email } });
+        navigate("/reset-password", { state: { email } });
       } else {
         message.error(data.msg);
       }
@@ -42,7 +42,7 @@ const Index = () => {
   return (
     <AuthLayout>
       <div className="flex flex-col gap-3">
-        <Form onFinish={onFinish} layout="vertical" className="sm:w-[300px]">
+        <Form onFinish={onFinish} layout="vertical" className="w-[300px]">
           <Form.Item
             name="otp"
             label="Otp"

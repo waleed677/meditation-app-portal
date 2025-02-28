@@ -14,7 +14,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
 
   return (
     <Layout className="h-screen w-screen overflow-hidden">
-      <Sidebar collapsed={collapsed} />
+      <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
       <Layout className="bg-[#f3ebe4d8]">
         <TopHeader setCollapsed={setCollapsed} collapsed={collapsed} />
         <div className="overflow-y-auto">

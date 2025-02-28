@@ -9,7 +9,7 @@ interface AuthLayoutProps {
 const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
   return (
     <div className="bg-[#FFF9F0] h-screen w-screen flex items-center justify-center">
-      <div className="bg-white w-96 drop-shadow-2xl border border-zinc-300 rounded-xl flex flex-col items-center gap-1 p-10">
+      <div className="bg-white md:w-96 drop-shadow-2xl border border-zinc-300 rounded-xl flex flex-col items-center gap-1 p-10 w-full md:mx-0 mx-2">
         <UserTagIcon />
         <Typography type="title3">Hi there,</Typography>
         <Typography type="title3">I am happy you are here!</Typography>

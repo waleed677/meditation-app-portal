@@ -8,16 +8,14 @@ const Index = () => {
   const navigate = useNavigate();
   const location = useLocation(); // Get current URL
   const email = location.state?.email;
-  console.log(email)
+  console.log(email);
   const [resetPassword, { isLoading, isSuccess, data }] =
     useResetPasswordMutation();
 
   const onFinish = async (values: {
     password: string;
     password_confirmation: string;
-
   }) => {
-
     // if(values.password!==values.password_confirmation){
     //   message.error();
     // }
@@ -39,7 +37,7 @@ const Index = () => {
   return (
     <AuthLayout>
       <div className="flex flex-col gap-3">
-        <Form onFinish={onFinish} layout="vertical" className="sm:w-[300px]">
+        <Form onFinish={onFinish} layout="vertical" className="w-[300px]">
           <Form.Item
             name="password"
             label="New Password"
