@@ -12,7 +12,7 @@ const Sidebar = ({
 }) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [breakPoint, setBreakPoint] = React.useState(false);
+
   return (
     <React.Fragment>
       <Sider
