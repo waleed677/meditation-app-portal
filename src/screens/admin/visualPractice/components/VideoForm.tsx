@@ -47,13 +47,7 @@ const VideoForm: React.FC<VideoFormProps> = ({
         label="Duration"
         placeholder="Enter duration"
       />
-      <Form.Item
-        name="description"
-        label="Description"
-        rules={[{ required: true }]}
-      >
-        <Input.TextArea placeholder="Enter Description" />
-      </Form.Item>
+
       <Form.Item
         name="practices_id"
         label="Practices"
@@ -70,6 +64,16 @@ const VideoForm: React.FC<VideoFormProps> = ({
             </Select.Option>
           ))}
         </Select>
+      </Form.Item>
+      <Form.Item
+        name="description"
+        label="Description"
+        rules={[{ required: true }]}
+      >
+        <Input.TextArea placeholder="Enter Description" />
+      </Form.Item>
+      <Form.Item name="order_num" label="Order Number">
+        <Input type="number" placeholder="Enter Order Number" />
       </Form.Item>
       <Form.Item
         name="video"

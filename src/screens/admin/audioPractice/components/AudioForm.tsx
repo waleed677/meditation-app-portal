@@ -1,6 +1,8 @@
-import { Form, Input, Upload } from "antd";
+import { Form, Input, Select, Upload } from "antd";
 import TextInput from "../../../../components/form-inputs/textInput";
 import { DeleteOutlined } from "@ant-design/icons";
+import { useState } from "react";
+import { useGetPracticesQuery } from "../../../../services/practices";
 interface AudioFormProps {
   showEditModal?: {
     data: {
@@ -15,6 +17,16 @@ const AudioForm: React.FC<AudioFormProps> = ({
   showEditModal,
   setShowEditModal,
 }) => {
+  const [practicesId, setPracticesId] = useState<string | null>(null);
+
+  const { data: getPracticesData } = useGetPracticesQuery({});
+
+  const handleChange = (value: string) => {
+    console.log(`selected ${value}`);
+    setPracticesId(value);
+  };
+  const practices = getPracticesData?.practices || [];
+  // State to store selected resource_id
   const handleDeleteFile = (objKey: string) => {
     const updatedData = { ...showEditModal?.data };
     delete updatedData?.[objKey];
@@ -35,11 +47,31 @@ const AudioForm: React.FC<AudioFormProps> = ({
         placeholder="Enter duration"
       />
       <Form.Item
+        name="practices_id"
+        label="Practices"
+        rules={[{ required: true }]}
+      >
+        <Select
+          onChange={handleChange}
+          value={practicesId}
+          placeholder="Select a practice"
+        >
+          {practices.map((resource: { id: number; name: string }) => (
+            <Select.Option key={resource.id} value={resource.id}>
+              {resource.name}
+            </Select.Option>
+          ))}
+        </Select>
+      </Form.Item>
+      <Form.Item
         name="description"
         label="Description"
         rules={[{ required: true }]}
       >
         <Input.TextArea placeholder="Enter Description" />
+      </Form.Item>
+      <Form.Item name="order_num" label="Order Number">
+        <Input type="number" placeholder="Enter Order Number" />
       </Form.Item>
       <Form.Item
         className="mb-0"
