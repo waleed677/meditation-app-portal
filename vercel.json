@@ -3,6 +3,10 @@
     {
       "source": "/api/:path*",
       "destination": "https://mintcream-cod-221842.hostingersite.com/api/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/"
     }
   ]
-} 
+}

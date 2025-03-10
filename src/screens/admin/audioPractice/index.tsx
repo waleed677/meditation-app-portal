@@ -72,10 +72,12 @@ const Index = () => {
     <div>
       <TableHeader />
       <ListTable loading={isLoading} data={data?.audios} columns={columns} />
-      <EditAudio
-        setShowEditModal={setShowEditModal}
-        showEditModal={showEditModal}
-      />
+      {showEditModal && showEditModal.data && (
+        <EditAudio
+          setShowEditModal={setShowEditModal}
+          showEditModal={showEditModal}
+        />
+      )}
     </div>
   );
 };

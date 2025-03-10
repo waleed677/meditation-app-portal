@@ -1,4 +1,4 @@
-import { Form, Input, Select, Upload } from "antd";
+import { Form, Input, InputNumber, Select, Upload } from "antd";
 import TextInput from "../../../../components/form-inputs/textInput";
 import { DeleteOutlined } from "@ant-design/icons";
 import { useState } from "react";
@@ -71,7 +71,12 @@ const AudioForm: React.FC<AudioFormProps> = ({
         <Input.TextArea placeholder="Enter Description" />
       </Form.Item>
       <Form.Item name="order_number" label="Order Number">
-        <Input type="number" placeholder="Enter Order Number" />
+        <InputNumber
+          type="number"
+          placeholder="Enter Order Number"
+          min={1}
+          className="w-full"
+        />
       </Form.Item>
       <Form.Item
         className="mb-0"
