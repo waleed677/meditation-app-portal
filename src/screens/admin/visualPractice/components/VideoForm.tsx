@@ -72,7 +72,7 @@ const VideoForm: React.FC<VideoFormProps> = ({
       >
         <Input.TextArea placeholder="Enter Description" />
       </Form.Item>
-      <Form.Item name="order_num" label="Order Number">
+      <Form.Item name="order_number" label="Order Number">
         <Input type="number" placeholder="Enter Order Number" />
       </Form.Item>
       <Form.Item
