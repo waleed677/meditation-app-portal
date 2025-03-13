@@ -1,7 +1,6 @@
-import { Button, Form, message, Upload, Select } from "antd";
+import { Button, Form, message, Upload, Select, Input } from "antd";
 import Typography from "../../../../components/Typography/typography";
 import TextInput from "../../../../components/form-inputs/textInput";
-import ReactQuill from "react-quill";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { DeleteOutlined } from "@ant-design/icons";
@@ -16,27 +15,9 @@ const EditArticle = () => {
     useAddResourcesArticlesMutation();
   const [showEditModal, setShowEditModal] = useState(location?.state);
   const navigate = useNavigate();
-  const [detail, setDetail] = useState(""); // Store the editor content
-
-  const toolbarOptions = [
-    [{ header: "1" }, { header: "2" }, { font: [] }],
-    [{ size: ["small", false, "large", "huge"] }],
-    ["bold", "italic", "underline", "strike", "blockquote"],
-    [{ list: "ordered" }, { list: "bullet" }],
-    [{ indent: "-1" }, { indent: "+1" }],
-    [{ align: [] }],
-    ["link", "image", "video"],
-    [{ color: [] }, { background: [] }],
-    [{ font: [] }],
-    [{ direction: "rtl" }],
-    ["clean"],
-    ["code-block"],
-    ["table"],
-  ];
 
   // Handle form submission
   const onFinish = async (values: any) => {
-    console.log("====values.image", values.image, location?.state.image_url);
     const form = new FormData();
     form.append("title", values.title);
     form.append("content", values.content);
@@ -69,11 +50,6 @@ const EditArticle = () => {
       message.error("Something went wrong");
     }
   }, [isError]);
-
-  // Handle change in editor content
-  const handleEditorChange = (value: string) => {
-    setDetail(value); // Set the new value of the editor content
-  };
 
   const handleChange = (value: string) => {
     console.log(`selected ${value}`);
@@ -224,21 +200,10 @@ const EditArticle = () => {
             {
               required: true,
               message: "Please enter article details.",
-              validator: (_, value) => {
-                if (!value || value === "" || value === "<p><br></p>") {
-                  return Promise.reject("Please enter article details.");
-                }
-                return Promise.resolve();
-              },
             },
           ]}
         >
-          <ReactQuill
-            value={detail || location?.state?.content}
-            onChange={handleEditorChange}
-            modules={{ toolbar: toolbarOptions }}
-            theme="snow"
-          />
+          <Input.TextArea rows={5} />
         </Form.Item>
 
         <div className="flex items-center gap-3 justify-end">
