@@ -29,11 +29,7 @@ const PracticesForm: React.FC<PracticesFormProps> = ({
   return (
     <>
       <TextInput name="name" label="Name" placeholder="Enter your name" />
-      <Form.Item
-        name="description"
-        label="Description"
-        rules={[{ required: true }]}
-      >
+      <Form.Item name="description" label="Description">
         <Input.TextArea />
       </Form.Item>
       <Form.Item

@@ -4,7 +4,7 @@ import { IMAGE_BASE_URL } from "../config";
 import ImageUrl from "../assets/images/dummy-user.jpg";
 
 export const checkRowData = (data: string) => {
-  if (data) {
+  if (data && data != "undefined") {
     return <span>{data}</span>;
   } else {
     return <span className="text-[#FF913C] font-medium ">N/A</span>;

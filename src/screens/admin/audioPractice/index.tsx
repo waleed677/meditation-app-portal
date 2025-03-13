@@ -12,16 +12,21 @@ import {
 
 const Index = () => {
   const { data, isLoading } = useGetAudioPracticeQuery({});
+
   const [addAudioPractice, { isLoading: deleteLoading }] =
     useAddAudioPracticeMutation();
   const [showEditModal, setShowEditModal] = useState({
     open: false,
     data: null,
   });
+  const audiosWithIndex = data?.audios?.map((audio: any, index: number) => ({
+    ...audio,
+    index: index + 1, // Add 'id' field with index starting from 1
+  }));
   const columns = [
     {
       title: "Id",
-      render: (record: { id: string }) => checkRowData(record.id),
+      render: (record: { index: string }) => checkRowData(record.index),
       key: "id",
     },
     {
@@ -71,7 +76,7 @@ const Index = () => {
   return (
     <div>
       <TableHeader />
-      <ListTable loading={isLoading} data={data?.audios} columns={columns} />
+      <ListTable loading={isLoading} data={audiosWithIndex} columns={columns} />
       {showEditModal && showEditModal.data && (
         <EditAudio
           setShowEditModal={setShowEditModal}

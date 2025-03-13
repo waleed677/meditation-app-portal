@@ -13,7 +13,10 @@ import { useGetUsersQuery, useAddUsersMutation } from "../../../services/users";
 
 const Index = () => {
   const { data, isLoading } = useGetUsersQuery({});
-  console.log("======data", data);
+  const usersWithIndex = data?.data?.map((user: any, index: number) => ({
+    ...user,
+    index: index + 1, // Add 'id' field with index starting from 1
+  }));
   const [addUsers, { isLoading: deleteLoading, isSuccess: deleteSuccess }] =
     useAddUsersMutation();
 
@@ -25,7 +28,7 @@ const Index = () => {
   const columns = [
     {
       title: "Id",
-      render: (_: any, __: any, index: number) => index + 1,
+      render: (record: { index: string }) => checkRowData(record.index),
       key: "id",
     },
     {
@@ -77,7 +80,7 @@ const Index = () => {
   return (
     <div>
       <TableHeader />
-      <ListTable loading={isLoading} data={data?.data} columns={columns} />
+      <ListTable loading={isLoading} data={usersWithIndex} columns={columns} />
 
       {showEditModal?.data && (
         <EditUser

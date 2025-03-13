@@ -13,6 +13,12 @@ import {
 
 const Index = () => {
   const { data, isLoading } = useGetResourcesQuery({});
+  const resourcesWithIndex = data?.resources?.map(
+    (resource: any, index: number) => ({
+      ...resource,
+      index: index + 1, // Add 'id' field with index starting from 1
+    })
+  );
   const [addResources, { isLoading: deleteLoading }] =
     useAddResourcesMutation();
 
@@ -23,7 +29,7 @@ const Index = () => {
   const columns = [
     {
       title: "Id",
-      render: (record: { id: string }) => checkRowData(record.id),
+      render: (record: { index: string }) => checkRowData(record.index),
       key: "id",
     },
     {
@@ -77,11 +83,17 @@ const Index = () => {
   return (
     <div>
       <TableHeader />
-      <ListTable data={data?.resources} loading={isLoading} columns={columns} />
-      <EditResources
-        setShowEditModal={setShowEditModal}
-        showEditModal={showEditModal}
+      <ListTable
+        data={resourcesWithIndex}
+        loading={isLoading}
+        columns={columns}
       />
+      {showEditModal?.data && (
+        <EditResources
+          setShowEditModal={setShowEditModal}
+          showEditModal={showEditModal}
+        />
+      )}
     </div>
   );
 };

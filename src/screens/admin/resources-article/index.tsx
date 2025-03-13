@@ -12,6 +12,12 @@ import { Image } from "antd";
 
 const Index = () => {
   const { data, isLoading } = useGetResourcesArticlesQuery({});
+  const resourcesWithIndex = data?.resources?.map(
+    (resource: any, index: number) => ({
+      ...resource,
+      index: index + 1, // Add 'id' field with index starting from 1
+    })
+  );
   const [addResourcesArticles, { isLoading: deleteLoading }] =
     useAddResourcesArticlesMutation();
 
@@ -19,7 +25,7 @@ const Index = () => {
   const columns = [
     {
       title: "Id",
-      render: (record: { id: string }) => checkRowData(record.id),
+      render: (record: { index: string }) => checkRowData(record.index),
       key: "id",
     },
     {
@@ -81,7 +87,11 @@ const Index = () => {
   return (
     <div>
       <TableHeader />
-      <ListTable data={data?.resources} loading={isLoading} columns={columns} />
+      <ListTable
+        data={resourcesWithIndex}
+        loading={isLoading}
+        columns={columns}
+      />
     </div>
   );
 };

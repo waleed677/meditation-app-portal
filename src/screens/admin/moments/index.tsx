@@ -12,6 +12,10 @@ import {
 } from "../../../services/moments";
 const Index = () => {
   const { data, isLoading } = useGetMomentQuery({});
+  const momentsWithIndex = data?.moments?.map((moment: any, index: number) => ({
+    ...moment,
+    index: index + 1, // Add 'id' field with index starting from 1
+  }));
   const [addMoment, { isLoading: deleteLoading }] = useAddMomentMutation();
   const [showEditModal, setShowEditModal] = useState({
     open: false,
@@ -20,7 +24,7 @@ const Index = () => {
   const columns = [
     {
       title: "Id",
-      render: (record: { id: string }) => checkRowData(record.id),
+      render: (record: { index: string }) => checkRowData(record.index),
       key: "id",
     },
     {
@@ -80,11 +84,17 @@ const Index = () => {
   return (
     <div>
       <TableHeader />
-      <ListTable data={data?.moments} loading={isLoading} columns={columns} />
-      <EditMoments
-        setShowEditModal={setShowEditModal}
-        showEditModal={showEditModal}
+      <ListTable
+        data={momentsWithIndex}
+        loading={isLoading}
+        columns={columns}
       />
+      {showEditModal?.data && (
+        <EditMoments
+          setShowEditModal={setShowEditModal}
+          showEditModal={showEditModal}
+        />
+      )}
     </div>
   );
 };

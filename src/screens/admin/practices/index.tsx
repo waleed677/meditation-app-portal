@@ -13,6 +13,12 @@ import {
 
 const Index = () => {
   const { data, isLoading } = useGetPracticesQuery({});
+  const practicesWithIndex = data?.practices?.map(
+    (practice: any, index: number) => ({
+      ...practice,
+      index: index + 1, // Add 'id' field with index starting from 1
+    })
+  );
   const [addPractices, { isLoading: deleteLoading }] =
     useAddPracticesMutation();
 
@@ -23,7 +29,7 @@ const Index = () => {
   const columns = [
     {
       title: "Id",
-      render: (record: { id: string }) => checkRowData(record.id),
+      render: (record: { index: string }) => checkRowData(record.index),
       key: "id",
     },
     {
@@ -55,7 +61,18 @@ const Index = () => {
       render: (record: any) => (
         <div className="flex items-center gap-2">
           <RiEdit2Fill
-            onClick={() => setShowEditModal({ open: true, data: record })}
+            onClick={() =>
+              setShowEditModal({
+                open: true,
+                data: {
+                  ...record,
+                  description:
+                    record?.description != "undefined"
+                      ? record?.description
+                      : "",
+                },
+              })
+            }
             size={20}
             fill="#FF913C"
             className="cursor-pointer"
@@ -77,11 +94,17 @@ const Index = () => {
   return (
     <div>
       <TableHeader />
-      <ListTable data={data?.practices} loading={isLoading} columns={columns} />
-      <EditPractices
-        setShowEditModal={setShowEditModal}
-        showEditModal={showEditModal}
+      <ListTable
+        data={practicesWithIndex}
+        loading={isLoading}
+        columns={columns}
       />
+      {showEditModal?.data && (
+        <EditPractices
+          setShowEditModal={setShowEditModal}
+          showEditModal={showEditModal}
+        />
+      )}
     </div>
   );
 };

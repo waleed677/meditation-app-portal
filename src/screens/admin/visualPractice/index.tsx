@@ -13,6 +13,10 @@ import ViewVideoPlayer from "./components/ViewVideoPlayer";
 import { Tag } from "antd";
 const Index = () => {
   const { data, isLoading } = useGetVisualPracticeQuery({});
+  const videosWithIndex = data?.videos?.map((video: any, index: number) => ({
+    ...video,
+    index: index + 1, // Add 'id' field with index starting from 1
+  }));
   const [addVisualPractice, { isLoading: deleteLoading }] =
     useAddVisualPracticeMutation();
 
@@ -32,7 +36,7 @@ const Index = () => {
   const columns = [
     {
       title: "Id",
-      render: (record: { id: string }) => checkRowData(record.id),
+      render: (record: { index: string }) => checkRowData(record.index),
       key: "id",
     },
     {
@@ -95,7 +99,7 @@ const Index = () => {
   return (
     <div>
       <TableHeader />
-      <ListTable data={data?.videos} loading={isLoading} columns={columns} />
+      <ListTable data={videosWithIndex} loading={isLoading} columns={columns} />
       {showEditModal.data && (
         <EditVideo
           setShowEditModal={setShowEditModal}
