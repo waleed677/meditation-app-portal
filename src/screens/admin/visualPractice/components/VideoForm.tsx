@@ -68,7 +68,7 @@ const VideoForm: React.FC<VideoFormProps> = ({
       <Form.Item
         name="description"
         label="Description"
-        rules={[{ required: true }]}
+        // rules={[{ required: true }]}
       >
         <Input.TextArea placeholder="Enter Description" />
       </Form.Item>

@@ -66,7 +66,7 @@ const AudioForm: React.FC<AudioFormProps> = ({
       <Form.Item
         name="description"
         label="Description"
-        rules={[{ required: true }]}
+        // rules={[{ required: true }]}
       >
         <Input.TextArea placeholder="Enter Description" />
       </Form.Item>
