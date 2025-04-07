@@ -62,7 +62,7 @@ const Index = () => {
             label="Password"
             rules={[{ required: true }]}
           >
-            <Input />
+            <Input.Password />
           </Form.Item>
           <div
             className="flex justify-end text-[#2762A6] cursor-pointer"
