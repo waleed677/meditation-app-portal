@@ -1,8 +1,9 @@
-import { Form, Input, InputNumber, Select, Upload } from "antd";
+import { Form, Input, InputNumber, Select } from "antd";
 import TextInput from "../../../../components/form-inputs/textInput";
-import { DeleteOutlined } from "@ant-design/icons";
+// import { DeleteOutlined } from "@ant-design/icons";
 import { useGetPracticesQuery } from "../../../../services/practices";
 import { useState } from "react";
+import WasabiUploader from "../../../../components/upload-wasabi";
 
 interface VideoFormProps {
   showEditModal?: {
@@ -12,12 +13,15 @@ interface VideoFormProps {
     };
   };
   setShowEditModal?: React.Dispatch<React.SetStateAction<any>>;
+  form: any;
 }
 
 const VideoForm: React.FC<VideoFormProps> = ({
   showEditModal,
   setShowEditModal,
+  form,
 }) => {
+  console.log(showEditModal, "showEditModal", setShowEditModal);
   const [practicesId, setPracticesId] = useState<string | null>(null); // State to store selected resource_id
 
   const { data: getPracticesData } = useGetPracticesQuery({});
@@ -28,16 +32,16 @@ const VideoForm: React.FC<VideoFormProps> = ({
   };
 
   const practices = getPracticesData?.practices || [];
-  const handleDeleteFile = (objKey: string) => {
-    const updatedData = { ...showEditModal?.data };
-    delete updatedData?.[objKey];
-    if (setShowEditModal) {
-      setShowEditModal({
-        ...showEditModal,
-        data: updatedData,
-      });
-    }
-  };
+  // const handleDeleteFile = (objKey: string) => {
+  //   const updatedData = { ...showEditModal?.data };
+  //   delete updatedData?.[objKey];
+  //   if (setShowEditModal) {
+  //     setShowEditModal({
+  //       ...showEditModal,
+  //       data: updatedData,
+  //     });
+  //   }
+  // };
 
   return (
     <>
@@ -80,7 +84,21 @@ const VideoForm: React.FC<VideoFormProps> = ({
           className="w-full"
         />
       </Form.Item>
-      <Form.Item
+
+      <WasabiUploader
+        accept="video/*"
+        form={form}
+        name="file_url"
+        label="Upload Video"
+      />
+      <WasabiUploader
+        accept="image/*"
+        form={form}
+        name="thumbnail_url"
+        label="Upload Thumbnail"
+      />
+
+      {/* <Form.Item
         name="video"
         label="Upload"
         className="mb-0"
@@ -215,7 +233,7 @@ const VideoForm: React.FC<VideoFormProps> = ({
             />
           </div>
         )}
-      </div>
+      </div> */}
     </>
   );
 };

@@ -1,12 +1,9 @@
 import { Col, Row } from "antd";
 import SmallCard from "../../../components/cards/small-card";
 import { useGetUsersQuery } from "../../../services/users";
-import {
-  useGetVisualPracticeQuery
-} from "../../../services/visualPractice";
+import { useGetVisualPracticeQuery } from "../../../services/visualPractice";
 import { useGetAudioPracticeQuery } from "../../../services/audioPractice";
 import { FaUsers, FaUserSecret, FaVideo, FaVolumeUp } from "react-icons/fa";
-
 
 import ListTable from "../../../components/table";
 import { checkRowData, dateFun, joinFileLink } from "../../../utils/commonFun";
@@ -20,7 +17,6 @@ const Index = () => {
   const { data: getTotalAudioCount } = useGetAudioPracticeQuery({});
 
   const { data: getTotalUserData, isLoading } = useGetVisualPracticeQuery({});
-
 
   const [showVideoPlayer, setShowVideoPlayerData] = useState<{
     open: boolean;

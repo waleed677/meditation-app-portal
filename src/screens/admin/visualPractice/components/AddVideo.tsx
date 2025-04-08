@@ -3,7 +3,7 @@ import AddModal from "../../../../components/modals/add-modal";
 import VideoForm from "./VideoForm";
 import { useAddVisualPracticeMutation } from "../../../../services/visualPractice";
 import { useNavigate } from "react-router-dom";
-import { message } from "antd";
+import { Form, message } from "antd";
 
 // Define the types for the props passed to AddUser
 interface AddVideoProps {
@@ -15,15 +15,19 @@ const AddVideo: React.FC<AddVideoProps> = ({
   setShowAddModal,
   showAddModal,
 }) => {
+  const [form] = Form.useForm();
   const navigate = useNavigate();
-  const [addVisualPractice, { isLoading, isSuccess, isError, data }] = useAddVisualPracticeMutation();
+  const [addVisualPractice, { isLoading, isSuccess, isError, data }] =
+    useAddVisualPracticeMutation();
 
   useEffect(() => {
     if (isSuccess) {
       if (data && data.status === "success") {
         message.success(data.message);
         navigate("/visual-practice");
-      } else { message.error(data?.message); }
+      } else {
+        message.error(data?.message);
+      }
     }
   }, [isSuccess]);
 
@@ -39,8 +43,9 @@ const AddVideo: React.FC<AddVideoProps> = ({
       title="Add Video"
       setOpen={setShowAddModal}
       open={showAddModal}
+      outSideFormProps={form}
     >
-      <VideoForm />
+      <VideoForm form={form} />
     </AddModal>
   );
 };

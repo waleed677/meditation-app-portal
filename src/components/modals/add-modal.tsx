@@ -9,6 +9,7 @@ interface AddModalProps {
   open: boolean;
   loading: boolean;
   postData: (data: FormData) => any;
+  outSideFormProps?: any;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -19,6 +20,7 @@ const AddModal: React.FC<AddModalProps> = ({
   title,
   loading,
   postData,
+  outSideFormProps,
 }) => {
   const [form] = useForm();
 
@@ -40,6 +42,9 @@ const AddModal: React.FC<AddModalProps> = ({
 
   useEffect(() => {
     form.resetFields();
+    if (outSideFormProps) {
+      outSideFormProps.resetFields();
+    }
   }, [open]);
 
   return (
@@ -50,7 +55,11 @@ const AddModal: React.FC<AddModalProps> = ({
       title={title}
       footer={null}
     >
-      <Form form={form} onFinish={onFinish} layout="vertical">
+      <Form
+        form={outSideFormProps ? outSideFormProps : form}
+        onFinish={onFinish}
+        layout="vertical"
+      >
         {children}
         <div className="flex items-center gap-2 justify-end mt-4">
           <Button onClick={() => setOpen(false)}>Cancel</Button>

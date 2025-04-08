@@ -22,14 +22,17 @@ const EditVideo: React.FC<EditVideoProps> = ({
   showEditModal,
 }) => {
   const navigate = useNavigate();
-  const [addVisualPractice, { isLoading, isSuccess, isError, data }] = useAddVisualPracticeMutation();
+  const [addVisualPractice, { isLoading, isSuccess, isError, data }] =
+    useAddVisualPracticeMutation();
 
   useEffect(() => {
     if (isSuccess) {
       if (data && data.status === "success") {
         message.success(data.message);
         navigate("/visual-practice");
-      } else { message.error(data?.message); }
+      } else {
+        message.error(data?.message);
+      }
     }
   }, [isSuccess]);
 
@@ -48,10 +51,13 @@ const EditVideo: React.FC<EditVideoProps> = ({
       editModal={showEditModal}
       customValues={{ id: showEditModal.data?.id, action: "update" }}
     >
-      <VideoForm
-        setShowEditModal={setShowEditModal}
-        showEditModal={showEditModal}
-      />
+      {
+        //@ts-ignore
+        <VideoForm
+          setShowEditModal={setShowEditModal}
+          showEditModal={showEditModal}
+        />
+      }
     </EditModal>
   );
 };
